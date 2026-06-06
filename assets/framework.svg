@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 640" role="img" aria-labelledby="title desc">
+  <title id="title">ACE-Ego framework placeholder</title>
+  <desc id="desc">A framework diagram placeholder with observation, encoder, policy, and robot execution blocks.</desc>
+  <rect width="1440" height="640" fill="#ffffff"/>
+  <rect x="54" y="58" width="1332" height="524" rx="24" fill="#f7faf8" stroke="#dbe3de" stroke-width="3"/>
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="118" y="126" font-size="26" font-weight="900" fill="#14756d">ACE-Ego Pipeline</text>
+    <text x="118" y="164" font-size="18" fill="#5d6b64">Replace each block with the real components of your method.</text>
+  </g>
+  <g transform="translate(118 230)">
+    <rect width="230" height="170" rx="16" fill="#ffffff" stroke="#cfdcd6" stroke-width="3"/>
+    <rect x="28" y="32" width="174" height="82" rx="12" fill="#dce8e2"/>
+    <circle cx="78" cy="73" r="22" fill="#14756d"/>
+    <rect x="116" y="54" width="54" height="38" rx="8" fill="#c75146"/>
+    <text x="115" y="145" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="900" fill="#17201c">Observation</text>
+  </g>
+  <g transform="translate(430 230)">
+    <rect width="230" height="170" rx="16" fill="#ffffff" stroke="#cfdcd6" stroke-width="3"/>
+    <rect x="38" y="36" width="154" height="24" rx="12" fill="#14756d"/>
+    <rect x="38" y="76" width="154" height="24" rx="12" fill="#c8922e"/>
+    <rect x="38" y="116" width="154" height="24" rx="12" fill="#c75146"/>
+    <text x="115" y="145" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="900" fill="#17201c">Tokenizer</text>
+  </g>
+  <g transform="translate(742 230)">
+    <rect width="230" height="170" rx="16" fill="#ffffff" stroke="#cfdcd6" stroke-width="3"/>
+    <circle cx="80" cy="72" r="34" fill="#eef2ef" stroke="#14756d" stroke-width="8"/>
+    <circle cx="150" cy="72" r="34" fill="#eef2ef" stroke="#c75146" stroke-width="8"/>
+    <path d="M114 72 H116" stroke="#17201c" stroke-width="8" stroke-linecap="round"/>
+    <text x="115" y="145" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="900" fill="#17201c">Policy</text>
+  </g>
+  <g transform="translate(1054 230)">
+    <rect width="230" height="170" rx="16" fill="#0d524c" stroke="#0d524c" stroke-width="3"/>
+    <path d="M62 104 C78 50 123 44 138 86 C146 111 166 112 184 88" fill="none" stroke="#ffffff" stroke-width="13" stroke-linecap="round"/>
+    <circle cx="62" cy="104" r="13" fill="#f1b950"/>
+    <circle cx="184" cy="88" r="13" fill="#ffffff"/>
+    <text x="115" y="145" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="900" fill="#ffffff">Robot Action</text>
+  </g>
+  <g fill="none" stroke="#14756d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M364 315 H410"/>
+    <path d="M398 293 L420 315 L398 337"/>
+    <path d="M676 315 H722"/>
+    <path d="M710 293 L732 315 L710 337"/>
+    <path d="M988 315 H1034"/>
+    <path d="M1022 293 L1044 315 L1022 337"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" font-size="17" fill="#5d6b64">
+    <text x="233" y="462" text-anchor="middle">RGB, state, prompt</text>
+    <text x="545" y="462" text-anchor="middle">Aligned multimodal tokens</text>
+    <text x="857" y="462" text-anchor="middle">Reasoning and action features</text>
+    <text x="1169" y="462" text-anchor="middle">Closed-loop execution</text>
+  </g>
+</svg>

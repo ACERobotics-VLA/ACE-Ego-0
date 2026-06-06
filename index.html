@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="ACE-Ego project page for embodied AI research."
+    >
+    <title>ACE-Ego | Project Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav-shell" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="ACE-Ego home">
+          <span class="brand-mark">A</span>
+          <span>ACE-Ego</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+          <span class="sr-only">Toggle navigation</span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-links" id="nav-links">
+          <a href="#abstract">Abstract</a>
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+          <a href="#resources">Resources</a>
+          <a href="#citation">Citation</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero section-band">
+        <div class="container hero-inner">
+          <p class="eyebrow">Project Page Template</p>
+          <h1>ACE-Ego</h1>
+          <p class="subtitle">
+            A clean academic project homepage for embodied AI, vision-language-action,
+            and robot learning research.
+          </p>
+          <div class="author-list" aria-label="Authors">
+            <a href="#">First Author</a>
+            <a href="#">Second Author</a>
+            <a href="#">Third Author</a>
+            <a href="#">Project Lead</a>
+          </div>
+          <p class="affiliation">Your Lab, Your University</p>
+
+          <div class="action-row" aria-label="Project links">
+            <a class="button primary" href="#" target="_blank" rel="noreferrer">Paper</a>
+            <a class="button" href="#" target="_blank" rel="noreferrer">Code</a>
+            <a class="button" href="#" target="_blank" rel="noreferrer">Dataset</a>
+            <a class="button" href="#citation">BibTeX</a>
+          </div>
+
+          <figure class="teaser">
+            <video
+              controls
+              preload="none"
+              poster="assets/hero-poster.svg"
+              aria-label="ACE-Ego teaser video"
+            >
+              <source src="assets/teaser.mp4" type="video/mp4">
+            </video>
+            <figcaption>
+              Replace this teaser with the central result from your own project.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section" id="abstract">
+        <div class="container narrow">
+          <h2>Abstract</h2>
+          <p>
+            ACE-Ego studies how egocentric perception, language-conditioned
+            reasoning, and action prediction can be combined for robust robot
+            manipulation. This page mirrors the structure of modern research
+            homepages: a concise claim, a high-signal teaser, method overview,
+            qualitative results, and citation details.
+          </p>
+          <p>
+            Swap this paragraph with your paper abstract. Keep the first sentence
+            concrete, describe the core technical idea, and close with the main
+            empirical result or user-facing contribution.
+          </p>
+        </div>
+      </section>
+
+      <section class="section muted" aria-labelledby="highlight-heading">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Highlights</p>
+            <h2 id="highlight-heading">What The Page Should Communicate</h2>
+          </div>
+          <div class="card-grid three">
+            <article class="info-card">
+              <span class="kicker">01</span>
+              <h3>Task Generalization</h3>
+              <p>
+                Summarize the problem setting, training data, and generalization
+                behavior in one scannable card.
+              </p>
+            </article>
+            <article class="info-card">
+              <span class="kicker">02</span>
+              <h3>Model Design</h3>
+              <p>
+                Describe the architectural move that makes the project distinct
+                without forcing readers into implementation detail.
+              </p>
+            </article>
+            <article class="info-card">
+              <span class="kicker">03</span>
+              <h3>Real Results</h3>
+              <p>
+                Put videos, success rates, and representative comparisons near
+                the top so reviewers can evaluate the claim quickly.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="method">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Method</p>
+            <h2>Architecture Overview</h2>
+          </div>
+          <figure class="figure-panel">
+            <img src="assets/framework.svg" alt="ACE-Ego framework diagram">
+            <figcaption>
+              Replace this diagram with your own pipeline, model architecture,
+              or system overview.
+            </figcaption>
+          </figure>
+          <div class="step-grid">
+            <article>
+              <h3>Egocentric Input</h3>
+              <p>
+                RGB observations, proprioception, and optional language prompts
+                define the current robot state.
+              </p>
+            </article>
+            <article>
+              <h3>Policy Backbone</h3>
+              <p>
+                A vision-language encoder produces task-aware tokens for action
+                prediction.
+              </p>
+            </article>
+            <article>
+              <h3>Action Decoder</h3>
+              <p>
+                The controller predicts short-horizon actions that can be rolled
+                out in closed loop.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section muted" id="results">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Results</p>
+            <h2>Qualitative And Quantitative Evidence</h2>
+          </div>
+
+          <div class="media-grid">
+            <figure class="media-card">
+              <video controls preload="none" poster="assets/hero-poster.svg">
+                <source src="assets/demo-1.mp4" type="video/mp4">
+              </video>
+              <figcaption>Long-horizon manipulation demo.</figcaption>
+            </figure>
+            <figure class="media-card">
+              <video controls preload="none" poster="assets/hero-poster.svg">
+                <source src="assets/demo-2.mp4" type="video/mp4">
+              </video>
+              <figcaption>Language-conditioned task variation.</figcaption>
+            </figure>
+          </div>
+
+          <div class="table-wrap" role="region" aria-label="Result table" tabindex="0">
+            <table>
+              <thead>
+                <tr>
+                  <th>Method</th>
+                  <th>Seen Tasks</th>
+                  <th>Unseen Tasks</th>
+                  <th>Real Robot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Baseline A</td>
+                  <td>62.4</td>
+                  <td>41.8</td>
+                  <td>38.0</td>
+                </tr>
+                <tr>
+                  <td>Baseline B</td>
+                  <td>70.1</td>
+                  <td>49.5</td>
+                  <td>45.6</td>
+                </tr>
+                <tr>
+                  <td><strong>ACE-Ego</strong></td>
+                  <td><strong>82.7</strong></td>
+                  <td><strong>63.9</strong></td>
+                  <td><strong>58.4</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="resources">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Resources</p>
+            <h2>Release Checklist</h2>
+          </div>
+          <div class="resource-list">
+            <a href="#" class="resource-item" target="_blank" rel="noreferrer">
+              <span>Paper PDF</span>
+              <small>Link to arXiv, OpenReview, or a local PDF.</small>
+            </a>
+            <a href="#" class="resource-item" target="_blank" rel="noreferrer">
+              <span>Source Code</span>
+              <small>Repository, installation notes, and checkpoints.</small>
+            </a>
+            <a href="#" class="resource-item" target="_blank" rel="noreferrer">
+              <span>Dataset</span>
+              <small>Data card, license, preprocessing, and download script.</small>
+            </a>
+            <a href="#" class="resource-item" target="_blank" rel="noreferrer">
+              <span>Supplement</span>
+              <small>Extra experiments, ablations, and extended videos.</small>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section citation-section" id="citation">
+        <div class="container narrow">
+          <div class="section-heading">
+            <p class="eyebrow">Citation</p>
+            <h2>BibTeX</h2>
+          </div>
+          <div class="code-panel">
+            <button class="copy-button" type="button" data-copy-target="bibtex">
+              Copy
+            </button>
+            <pre id="bibtex"><code>@article{aceego2026,
+  title   = {ACE-Ego: Your Project Title Here},
+  author  = {Author, First and Author, Second and Author, Third},
+  journal = {arXiv preprint arXiv:0000.00000},
+  year    = {2026}
+}</code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>ACE-Ego project page.</p>
+        <a href="#top">Back to top</a>
+      </div>
+    </footer>
+  </body>
+</html>
