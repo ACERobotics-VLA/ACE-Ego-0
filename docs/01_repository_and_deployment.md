@@ -1,6 +1,6 @@
 # 01. ACE-Ego Project Page Repository And Deployment Notes
 
-本文档记录 `ace_ego_page` 仓库当前状态、文件组织、GitHub Pages 部署方式，以及后续更新和推送的推荐流程。
+本文档记录 ACE-Ego 项目主页仓库当前状态、文件组织、GitHub Pages 部署方式，以及后续更新和推送的推荐流程。
 
 ## 1. 仓库用途
 
@@ -8,13 +8,19 @@
 
 **ACE-Ego: Unifying Egocentric Human and Robotic Data for VLA Pretraining**
 
-线上地址：
+默认线上地址：
 
 ```text
-https://1223haohao.github.io/ace_ego_page/
+https://acerobotics-vla.github.io/ACE-Ego/
 ```
 
-GitHub 仓库：
+默认 GitHub 仓库：
+
+```text
+https://github.com/ACERobotics-VLA/ACE-Ego
+```
+
+旧个人仓库镜像：
 
 ```text
 https://github.com/1223haohao/ace_ego_page
@@ -110,7 +116,7 @@ _CoRL2026_ACE_Ego_0.zip
 
 ## 5. Git 状态说明
 
-当前目录中的 `.git` 在 Codex 沙箱环境里表现为只读占位目录，不能作为普通 Git 仓库使用。因此本次操作使用了临时 bare Git 目录：
+当前目录中的 `.git` 在 Codex 沙箱环境里表现为只读占位目录，不能作为普通 Git 仓库使用。因此当前操作使用临时 bare Git 目录：
 
 ```text
 /tmp/ace_ego_page.git
@@ -128,12 +134,21 @@ _CoRL2026_ACE_Ego_0.zip
 git --git-dir=/tmp/ace_ego_page.git --work-tree=/data/lh/projects/ace_ego_page status --short
 ```
 
-历史提交：
+当前 remote 约定：
 
 ```text
-f11681d Create project homepage
-247ee93 Add GitHub Pages workflow
-2c314c5 Redesign homepage for ACE-Ego paper
+origin   -> https://github.com/ACERobotics-VLA/ACE-Ego.git
+personal -> https://github.com/1223haohao/ace_ego_page.git
+```
+
+`origin` 是后续默认推送目标；`personal` 仅作为旧个人仓库镜像保留。
+
+近期提交：
+
+```text
+f2a34d3 Reorder homepage sections
+d9f56fd Update coverage trajectory figure
+7beaef1 Render homepage figures from PDFs
 ```
 
 ## 6. GitHub 认证
@@ -161,13 +176,16 @@ password=YOUR_TOKEN_HERE
 
 - 不要把 GitHub token 写入聊天、文档或代码。
 - `credential.helper store` 会把 token 存到当前用户的本地 credential 文件中，使用方便但安全性一般。
-- fine-grained token 至少需要对 `1223haohao/ace_ego_page` 有 `Contents: Read and write` 权限。
+- fine-grained token 至少需要对 `ACERobotics-VLA/ACE-Ego` 有 `Contents: Read and write` 权限。
 
 ## 7. 推送方式
 
-由于当前环境访问 GitHub HTTPS 偶尔会出现 TLS 中断，推荐推送时显式使用 `HTTP/1.1`：
+由于当前环境访问 GitHub HTTPS 偶尔会出现 TLS 中断，推荐先开启代理，并显式使用 `HTTP/1.1`：
 
 ```bash
+source /etc/profile.d/clash.sh
+proxy_on
+
 GIT_TERMINAL_PROMPT=0 git -c http.version=HTTP/1.1 \
   --git-dir=/tmp/ace_ego_page.git \
   --work-tree=/data/lh/projects/ace_ego_page \
@@ -188,7 +206,15 @@ GIT_TERMINAL_PROMPT=0 git -c http.version=HTTP/1.1 \
 ```bash
 git --git-dir=/tmp/ace_ego_page.git \
   --work-tree=/data/lh/projects/ace_ego_page \
-  remote add origin https://github.com/1223haohao/ace_ego_page.git
+  remote add origin https://github.com/ACERobotics-VLA/ACE-Ego.git
+```
+
+如果本地 `origin` 仍指向旧个人仓库，改成组织仓库：
+
+```bash
+git --git-dir=/tmp/ace_ego_page.git \
+  --work-tree=/data/lh/projects/ace_ego_page \
+  remote set-url origin https://github.com/ACERobotics-VLA/ACE-Ego.git
 ```
 
 ## 8. 更新页面的推荐流程
@@ -220,6 +246,9 @@ git --git-dir=/tmp/ace_ego_page.git \
 推送：
 
 ```bash
+source /etc/profile.d/clash.sh
+proxy_on
+
 GIT_TERMINAL_PROMPT=0 git -c http.version=HTTP/1.1 \
   --git-dir=/tmp/ace_ego_page.git \
   --work-tree=/data/lh/projects/ace_ego_page \
@@ -251,7 +280,7 @@ Source: GitHub Actions
 成功后访问：
 
 ```text
-https://1223haohao.github.io/ace_ego_page/
+https://acerobotics-vla.github.io/ACE-Ego/
 ```
 
 如果刚推送后仍显示旧页面或 404，通常是 Pages 构建或 CDN 缓存延迟。等待 1-5 分钟后强制刷新即可。
