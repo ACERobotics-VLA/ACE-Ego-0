@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="assets/ACE_Logo.png" alt="ACE Robotics" width="220">
+  <img src="assets/ACE_Logo.png" alt="ACE Robotics" height="72">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/cuhk_logo.png" alt="The Chinese University of Hong Kong" height="72">
 </p>
 
 <h1 align="center">ACE-Ego-0: Unifying Egocentric Human and Robotic Data for VLA Pretraining</h1>
