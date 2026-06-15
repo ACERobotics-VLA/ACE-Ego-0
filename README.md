@@ -1,8 +1,8 @@
-# ACE-Ego Project Page
+# ACE-Ego 0 Project Page
 
 This repository contains the static project homepage for:
 
-**ACE-Ego: Unifying Egocentric Human and Robotic Data for VLA Pretraining**
+**ACE-Ego 0: Unifying Egocentric Human and Robotic Data for VLA Pretraining**
 
 The page is plain HTML, CSS, and JavaScript, so it can be deployed directly with
 GitHub Pages.
