@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ACE-Ego-0 Paper</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --bg: #f7f7fb;
+        --fg: #161616;
+        --muted: #666;
+        --accent: #6b4fd8;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 24px;
+        background: #fff;
+        border-bottom: 1px solid #e7e7ef;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(18px, 2vw, 26px);
+        line-height: 1.25;
+      }
+
+      p {
+        margin: 4px 0 0;
+        color: var(--muted);
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 650;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid #d9d7ef;
+        border-radius: 999px;
+        padding: 8px 14px;
+        background: #fff;
+      }
+
+      main {
+        height: calc(100vh - 86px);
+        min-height: 620px;
+        padding: 18px;
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #ddddeb;
+        border-radius: 14px;
+        background: #fff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      @media (max-width: 760px) {
+        header {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        nav {
+          justify-content: flex-start;
+        }
+
+        main {
+          height: calc(100vh - 146px);
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>ACE-Ego-0</h1>
+        <p>Unifying Egocentric Human and Robotic Data for VLA Pretraining</p>
+      </div>
+      <nav aria-label="Paper links">
+        <a class="button" href="_CoRL2026_ACE_Ego_0.pdf">Open PDF</a>
+        <a class="button" href="_CoRL2026_ACE_Ego_0.pdf" download>Download</a>
+        <a class="button" href="https://github.com/ACERobotics-VLA/ACE-Ego-0">GitHub</a>
+      </nav>
+    </header>
+    <main>
+      <iframe
+        title="ACE-Ego-0 paper PDF"
+        src="_CoRL2026_ACE_Ego_0.pdf#toolbar=1&navpanes=0"
+      ></iframe>
+    </main>
+  </body>
+</html>
