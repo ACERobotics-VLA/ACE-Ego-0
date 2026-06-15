@@ -5,19 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="ACE-Ego project page for embodied AI research."
+      content="ACE-Ego: Unifying Egocentric Human and Robotic Data for VLA Pretraining."
     >
-    <title>ACE-Ego | Project Page</title>
+    <title>ACE-Ego | Unifying Egocentric Human and Robotic Data</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
   </head>
   <body>
     <header class="site-header">
       <nav class="nav-shell" aria-label="Primary navigation">
-        <a class="brand" href="#top" aria-label="ACE-Ego home">
-          <span class="brand-mark">A</span>
-          <span>ACE-Ego</span>
-        </a>
+        <a class="brand" href="#top">ACE-Ego</a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
           <span class="sr-only">Toggle navigation</span>
           <span></span>
@@ -27,48 +24,58 @@
         <div class="nav-links" id="nav-links">
           <a href="#abstract">Abstract</a>
           <a href="#method">Method</a>
+          <a href="#demos">Videos</a>
           <a href="#results">Results</a>
-          <a href="#resources">Resources</a>
           <a href="#citation">Citation</a>
         </div>
       </nav>
     </header>
 
     <main id="top">
-      <section class="hero section-band">
-        <div class="container hero-inner">
-          <p class="eyebrow">Project Page Template</p>
-          <h1>ACE-Ego</h1>
-          <p class="subtitle">
-            A clean academic project homepage for embodied AI, vision-language-action,
-            and robot learning research.
-          </p>
-          <div class="author-list" aria-label="Authors">
-            <a href="#">First Author</a>
-            <a href="#">Second Author</a>
-            <a href="#">Third Author</a>
-            <a href="#">Project Lead</a>
-          </div>
-          <p class="affiliation">Your Lab, Your University</p>
+      <section class="hero">
+        <div class="container narrow center">
+          <p class="venue">Project Page</p>
+          <h1>ACE-Ego: Unifying Egocentric Human and Robotic Data for VLA Pretraining</h1>
 
-          <div class="action-row" aria-label="Project links">
-            <a class="button primary" href="#" target="_blank" rel="noreferrer">Paper</a>
+          <div class="authors" aria-label="Authors">
+            <span>Hao Li*</span>
+            <span>Ganlong Zhao*</span>
+            <span>Yufei Liu*</span>
+            <span>Haotian Hou*</span>
+            <span>Guoquan Ye</span>
+            <span>Tongyan Fang</span>
+            <span>Chunxiao Liu</span>
+            <span>Siyuan Huang</span>
+            <span>Jianbo Liu</span>
+            <span>Xiaogang Wang</span>
+            <span>Hongsheng Li</span>
+          </div>
+
+          <p class="affiliations">
+            ACE Robotics · CUHK MMLab · CUHK, Shenzhen · SJTU · THU
+          </p>
+          <p class="note">* Equal contribution</p>
+
+          <div class="button-row" aria-label="Project resources">
+            <a class="button" href="#" target="_blank" rel="noreferrer">Paper</a>
             <a class="button" href="#" target="_blank" rel="noreferrer">Code</a>
-            <a class="button" href="#" target="_blank" rel="noreferrer">Dataset</a>
+            <a class="button" href="#" target="_blank" rel="noreferrer">Data</a>
             <a class="button" href="#citation">BibTeX</a>
           </div>
+        </div>
 
+        <div class="container">
           <figure class="teaser">
             <video
               controls
-              preload="none"
-              poster="assets/hero-poster.svg"
-              aria-label="ACE-Ego teaser video"
+              playsinline
+              preload="metadata"
+              poster="assets/posters/scoop-coffee.jpg"
             >
-              <source src="assets/teaser.mp4" type="video/mp4">
+              <source src="assets/videos/scoop-coffee.mp4" type="video/mp4">
             </video>
             <figcaption>
-              Replace this teaser with the central result from your own project.
+              ACE-Ego transfers mixed-source VLA pretraining to real bimanual manipulation with camera-space action prediction.
             </figcaption>
           </figure>
         </div>
@@ -78,50 +85,46 @@
         <div class="container narrow">
           <h2>Abstract</h2>
           <p>
-            ACE-Ego studies how egocentric perception, language-conditioned
-            reasoning, and action prediction can be combined for robust robot
-            manipulation. This page mirrors the structure of modern research
-            homepages: a concise claim, a high-signal teaser, method overview,
-            qualitative results, and citation details.
+            Vision-language-action (VLA) models benefit from large-scale and
+            diverse embodied data, yet scaling robot trajectory collection is
+            costly and labor-intensive. Large-scale egocentric human videos
+            provide complementary real-world supervision, but joint training on
+            human and robot data is difficult because their action spaces,
+            embodiment structures, temporal dynamics, and supervision quality do
+            not match.
           </p>
           <p>
-            Swap this paragraph with your paper abstract. Keep the first sentence
-            concrete, describe the core technical idea, and close with the main
-            empirical result or user-facing contribution.
+            We introduce <strong>ACE-Ego</strong>, a unified VLA pretraining
+            framework that converts human egocentric videos into robot-format
+            pseudo-action trajectories, aligns heterogeneous sources through
+            camera-space actions, morphology conditioning, and time-aligned action
+            chunking, and trains with reliability-aware human auxiliary
+            supervision. ACE-Ego pretrains on 4.53K hours of robot and simulation
+            data plus 1.48K hours of pseudo-action-labeled egocentric human data,
+            achieving state-of-the-art performance on RoboCasa GR1 TableTop and
+            RoboTwin 2.0 with strong real-world bimanual transfer.
           </p>
         </div>
       </section>
 
-      <section class="section muted" aria-labelledby="highlight-heading">
+      <section class="section compact">
         <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">Highlights</p>
-            <h2 id="highlight-heading">What The Page Should Communicate</h2>
-          </div>
-          <div class="card-grid three">
-            <article class="info-card">
-              <span class="kicker">01</span>
-              <h3>Task Generalization</h3>
-              <p>
-                Summarize the problem setting, training data, and generalization
-                behavior in one scannable card.
-              </p>
+          <div class="stat-grid" aria-label="Key results">
+            <article>
+              <strong>6.0K+ hrs</strong>
+              <span>mixed embodied pretraining data</span>
             </article>
-            <article class="info-card">
-              <span class="kicker">02</span>
-              <h3>Model Design</h3>
-              <p>
-                Describe the architectural move that makes the project distinct
-                without forcing readers into implementation detail.
-              </p>
+            <article>
+              <strong>72.8%</strong>
+              <span>RoboCasa GR1 TableTop success</span>
             </article>
-            <article class="info-card">
-              <span class="kicker">03</span>
-              <h3>Real Results</h3>
-              <p>
-                Put videos, success rates, and representative comparisons near
-                the top so reviewers can evaluate the claim quickly.
-              </p>
+            <article>
+              <strong>91.12 / 90.62%</strong>
+              <span>RoboTwin 2.0 Easy / Hard success</span>
+            </article>
+            <article>
+              <strong>78.3%</strong>
+              <span>real bimanual ARX success</span>
             </article>
           </div>
         </div>
@@ -129,141 +132,216 @@
 
       <section class="section" id="method">
         <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">Method</p>
-            <h2>Architecture Overview</h2>
+          <div class="section-heading center">
+            <h2>Method Overview</h2>
+            <p>
+              ACE-Ego resolves spatial, structural, temporal, and label-quality
+              mismatches between human egocentric video and robot trajectories.
+            </p>
           </div>
-          <figure class="figure-panel">
-            <img src="assets/framework.svg" alt="ACE-Ego framework diagram">
+
+          <figure class="figure">
+            <img src="assets/ace-ego-overview.svg" alt="ACE-Ego overview diagram">
             <figcaption>
-              Replace this diagram with your own pipeline, model architecture,
-              or system overview.
+              A single VLA policy is pretrained from egocentric human videos,
+              multi-embodiment robot demonstrations, and simulation rollouts.
             </figcaption>
           </figure>
-          <div class="step-grid">
+
+          <div class="feature-grid">
             <article>
-              <h3>Egocentric Input</h3>
+              <h3>Camera-Space Actions</h3>
               <p>
-                RGB observations, proprioception, and optional language prompts
-                define the current robot state.
+                Robot end-effector trajectories and reconstructed human
+                pseudo-actions are represented in the observation-centric camera
+                frame.
               </p>
             </article>
             <article>
-              <h3>Policy Backbone</h3>
+              <h3>Morphology Conditioning</h3>
               <p>
-                A vision-language encoder produces task-aware tokens for action
-                prediction.
+                Robot URDF graph embeddings and learned human surrogate tokens
+                condition the action expert without changing the VLM backbone.
               </p>
             </article>
             <article>
-              <h3>Action Decoder</h3>
+              <h3>Reliability-Aware Training</h3>
               <p>
-                The controller predicts short-horizon actions that can be rolled
-                out in closed loop.
+                Sensor-logged robot actions supervise the primary loss, while
+                noisy human pseudo-actions contribute through quality-weighted
+                auxiliary losses.
               </p>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section muted" id="results">
+      <section class="section shaded">
         <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">Results</p>
-            <h2>Qualitative And Quantitative Evidence</h2>
+          <div class="section-heading center">
+            <h2>Human Video Improves Data-Scarce Fine-Tuning</h2>
+            <p>
+              Task-matched egocentric human videos cover broader action regions
+              than limited robot demonstrations and recover downstream success.
+            </p>
           </div>
 
-          <div class="media-grid">
-            <figure class="media-card">
-              <video controls preload="none" poster="assets/hero-poster.svg">
-                <source src="assets/demo-1.mp4" type="video/mp4">
-              </video>
-              <figcaption>Long-horizon manipulation demo.</figcaption>
+          <div class="figure-pair">
+            <figure class="figure">
+              <img src="assets/figures/coverage-trajectories.png" alt="Robot and human trajectory coverage">
+              <figcaption>
+                Sweep Cubes trajectory coverage: 419 human-video episodes cover
+                4.8x larger workspace area than 34 robot demonstrations.
+              </figcaption>
             </figure>
-            <figure class="media-card">
-              <video controls preload="none" poster="assets/hero-poster.svg">
-                <source src="assets/demo-2.mp4" type="video/mp4">
-              </video>
-              <figcaption>Language-conditioned task variation.</figcaption>
+            <figure class="figure">
+              <img src="assets/figures/action-distribution.png" alt="Action distribution comparison">
+              <figcaption>
+                Human video supplies complementary motion patterns in
+                data-scarce fine-tuning regimes.
+              </figcaption>
             </figure>
-          </div>
-
-          <div class="table-wrap" role="region" aria-label="Result table" tabindex="0">
-            <table>
-              <thead>
-                <tr>
-                  <th>Method</th>
-                  <th>Seen Tasks</th>
-                  <th>Unseen Tasks</th>
-                  <th>Real Robot</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Baseline A</td>
-                  <td>62.4</td>
-                  <td>41.8</td>
-                  <td>38.0</td>
-                </tr>
-                <tr>
-                  <td>Baseline B</td>
-                  <td>70.1</td>
-                  <td>49.5</td>
-                  <td>45.6</td>
-                </tr>
-                <tr>
-                  <td><strong>ACE-Ego</strong></td>
-                  <td><strong>82.7</strong></td>
-                  <td><strong>63.9</strong></td>
-                  <td><strong>58.4</strong></td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
       </section>
 
-      <section class="section" id="resources">
+      <section class="section" id="demos">
         <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">Resources</p>
-            <h2>Release Checklist</h2>
+          <div class="section-heading center">
+            <h2>Real-Robot Demonstrations</h2>
+            <p>
+              ACE-Ego is deployed on a bimanual ARX platform with a head-mounted
+              camera and camera-space delta end-effector commands.
+            </p>
           </div>
-          <div class="resource-list">
-            <a href="#" class="resource-item" target="_blank" rel="noreferrer">
-              <span>Paper PDF</span>
-              <small>Link to arXiv, OpenReview, or a local PDF.</small>
-            </a>
-            <a href="#" class="resource-item" target="_blank" rel="noreferrer">
-              <span>Source Code</span>
-              <small>Repository, installation notes, and checkpoints.</small>
-            </a>
-            <a href="#" class="resource-item" target="_blank" rel="noreferrer">
-              <span>Dataset</span>
-              <small>Data card, license, preprocessing, and download script.</small>
-            </a>
-            <a href="#" class="resource-item" target="_blank" rel="noreferrer">
-              <span>Supplement</span>
-              <small>Extra experiments, ablations, and extended videos.</small>
-            </a>
+
+          <div class="video-grid">
+            <figure class="video-card">
+              <video controls playsinline preload="metadata" poster="assets/posters/scoop-coffee.jpg">
+                <source src="assets/videos/scoop-coffee.mp4" type="video/mp4">
+              </video>
+              <figcaption>Scoop Coffee</figcaption>
+            </figure>
+            <figure class="video-card">
+              <video controls playsinline preload="metadata" poster="assets/posters/category-sorting.jpg">
+                <source src="assets/videos/category-sorting.mp4" type="video/mp4">
+              </video>
+              <figcaption>Category Sorting</figcaption>
+            </figure>
+            <figure class="video-card">
+              <video controls playsinline preload="metadata" poster="assets/posters/arrange-drinks.jpg">
+                <source src="assets/videos/arrange-drinks.mp4" type="video/mp4">
+              </video>
+              <figcaption>Pick Tea / Arrange Drinks</figcaption>
+            </figure>
+            <figure class="video-card">
+              <video controls playsinline preload="metadata" poster="assets/posters/stack-bowls.jpg">
+                <source src="assets/videos/stack-bowls.mp4" type="video/mp4">
+              </video>
+              <figcaption>Stack Bowls</figcaption>
+            </figure>
+            <figure class="video-card">
+              <video controls playsinline preload="metadata" poster="assets/posters/sweep-cubes.jpg">
+                <source src="assets/videos/sweep-cubes.mp4" type="video/mp4">
+              </video>
+              <figcaption>Sweep Cubes</figcaption>
+            </figure>
+            <figure class="video-card">
+              <video controls playsinline preload="metadata" poster="assets/posters/pack-shoes.jpg">
+                <source src="assets/videos/pack-shoes.mp4" type="video/mp4">
+              </video>
+              <figcaption>Pack Shoes</figcaption>
+            </figure>
           </div>
         </div>
       </section>
 
-      <section class="section citation-section" id="citation">
+      <section class="section shaded" id="results">
+        <div class="container">
+          <div class="section-heading center">
+            <h2>Results</h2>
+            <p>
+              ACE-Ego improves simulation benchmarks and real bimanual
+              manipulation against strong VLA baselines.
+            </p>
+          </div>
+
+          <div class="results-grid">
+            <article class="result-panel">
+              <h3>RoboCasa GR1 TableTop</h3>
+              <div class="table-wrap" role="region" aria-label="RoboCasa results" tabindex="0">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Method</th>
+                      <th>Average Success</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>GR00T-N1.6</td><td>47.6</td></tr>
+                    <tr><td>Qwen3PI</td><td>43.9</td></tr>
+                    <tr><td>FLARE</td><td>55.0</td></tr>
+                    <tr><td>ABot-M0</td><td>58.3</td></tr>
+                    <tr><td>JoyAI-RA</td><td>63.2</td></tr>
+                    <tr><td>DIAL</td><td>70.2</td></tr>
+                    <tr class="ours"><td>ACE-Ego</td><td>72.8</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="result-panel">
+              <h3>RoboTwin 2.0</h3>
+              <div class="table-wrap" role="region" aria-label="RoboTwin results" tabindex="0">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Method</th>
+                      <th>Easy</th>
+                      <th>Hard</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>pi_0.5</td><td>82.74</td><td>76.76</td></tr>
+                    <tr><td>Motus</td><td>88.66</td><td>87.02</td></tr>
+                    <tr><td>LingBot-VLA</td><td>88.56</td><td>86.68</td></tr>
+                    <tr><td>ABot-M0</td><td>86.06</td><td>85.08</td></tr>
+                    <tr><td>JoyAI-RA</td><td>90.48</td><td>89.28</td></tr>
+                    <tr class="ours"><td>ACE-Ego</td><td>91.12</td><td>90.62</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+
+          <div class="figure-pair results-figures">
+            <figure class="figure">
+              <img src="assets/figures/real-robot-results.png" alt="Real robot success rates">
+              <figcaption>
+                Real-robot success rates across six ARX bimanual tasks and the
+                average over 30 trials per task.
+              </figcaption>
+            </figure>
+            <figure class="figure">
+              <img src="assets/figures/ablation.png" alt="ACE-Ego component ablation">
+              <figcaption>
+                Component ablations show contributions from time alignment, URDF
+                morphology tokens, and reliability-aware human supervision.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="citation">
         <div class="container narrow">
-          <div class="section-heading">
-            <p class="eyebrow">Citation</p>
-            <h2>BibTeX</h2>
-          </div>
+          <h2>Citation</h2>
           <div class="code-panel">
-            <button class="copy-button" type="button" data-copy-target="bibtex">
-              Copy
-            </button>
-            <pre id="bibtex"><code>@article{aceego2026,
-  title   = {ACE-Ego: Your Project Title Here},
-  author  = {Author, First and Author, Second and Author, Third},
-  journal = {arXiv preprint arXiv:0000.00000},
+            <button class="copy-button" type="button" data-copy-target="bibtex">Copy</button>
+            <pre id="bibtex"><code>@article{li2026aceego,
+  title   = {ACE-Ego: Unifying Egocentric Human and Robotic Data for VLA Pretraining},
+  author  = {Li, Hao and Zhao, Ganlong and Liu, Yufei and Hou, Haotian and Ye, Guoquan and Fang, Tongyan and Liu, Chunxiao and Huang, Siyuan and Liu, Jianbo and Wang, Xiaogang and Li, Hongsheng},
+  journal = {arXiv preprint},
   year    = {2026}
 }</code></pre>
           </div>
@@ -273,7 +351,7 @@
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>ACE-Ego project page.</p>
+        <span>ACE-Ego project page</span>
         <a href="#top">Back to top</a>
       </div>
     </footer>

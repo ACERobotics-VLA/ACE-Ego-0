@@ -1,16 +1,23 @@
 # ACE-Ego Project Page
 
-This repository contains a static academic project homepage inspired by modern
-robotics and vision-language-action project pages. It is intentionally plain
-HTML, CSS, and JavaScript so it can be deployed directly with GitHub Pages.
+This repository contains the static project homepage for:
 
-## Edit Checklist
+**ACE-Ego: Unifying Egocentric Human and Robotic Data for VLA Pretraining**
 
-- Change the title, authors, affiliations, and links in `index.html`.
-- Replace `assets/hero-poster.svg` with your teaser poster or keep it as a fallback.
-- Add videos as `assets/teaser.mp4`, `assets/demo-1.mp4`, and `assets/demo-2.mp4`.
-- Replace `assets/framework.svg` with your actual method figure.
-- Update the abstract, result table, resource links, and BibTeX entry.
+The page is plain HTML, CSS, and JavaScript, so it can be deployed directly with
+GitHub Pages.
+
+## Content Layout
+
+- `index.html` contains the paper title, authors, abstract, method overview,
+  real-robot demos, benchmark tables, figures, and BibTeX.
+- `assets/videos/` contains web-compressed MP4 demos for GitHub Pages.
+- `assets/posters/` contains video poster frames.
+- `assets/figures/` contains paper figures copied from the paper project.
+- `assets/ace-ego-overview.svg` contains the project overview diagram.
+
+The raw `整理视频/` directory and `整理视频.zip` are intentionally ignored because
+they are too large for normal GitHub hosting.
 
 ## Local Preview
 

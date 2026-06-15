@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 760" role="img" aria-labelledby="title desc">
+  <title id="title">ACE-Ego overview</title>
+  <desc id="desc">Human egocentric video, robot demonstrations, and simulation rollouts are aligned into camera-space action chunks for VLA pretraining.</desc>
+  <defs>
+    <linearGradient id="blue" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f4f8ff"/>
+      <stop offset="1" stop-color="#dcecff"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f5fbf5"/>
+      <stop offset="1" stop-color="#dff1e7"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff9f2"/>
+      <stop offset="1" stop-color="#fde7cf"/>
+    </linearGradient>
+  </defs>
+  <rect width="1500" height="760" fill="#ffffff"/>
+  <rect x="45" y="45" width="1410" height="670" rx="28" fill="#f7f7f5" stroke="#dadde1" stroke-width="3"/>
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="90" y="112" font-size="34" font-weight="800" fill="#171717">ACE-Ego: Mixed-Source VLA Pretraining</text>
+    <text x="90" y="150" font-size="20" fill="#5f6468">Spatial, structural, temporal, and reliability alignment for human and robot embodied data.</text>
+  </g>
+  <g transform="translate(92 220)" font-family="Inter, Arial, sans-serif">
+    <rect width="285" height="126" rx="16" fill="url(#blue)" stroke="#bbd2ee" stroke-width="3"/>
+    <text x="142" y="48" text-anchor="middle" font-size="24" font-weight="800" fill="#143d68">Egocentric Videos</text>
+    <text x="142" y="82" text-anchor="middle" font-size="18" fill="#5f6468">1.48K hrs pseudo-actions</text>
+  </g>
+  <g transform="translate(92 392)" font-family="Inter, Arial, sans-serif">
+    <rect width="285" height="126" rx="16" fill="url(#green)" stroke="#bddcc8" stroke-width="3"/>
+    <text x="142" y="48" text-anchor="middle" font-size="24" font-weight="800" fill="#24513a">Robot Demos</text>
+    <text x="142" y="82" text-anchor="middle" font-size="18" fill="#5f6468">multi-embodiment logs</text>
+  </g>
+  <g transform="translate(92 564)" font-family="Inter, Arial, sans-serif">
+    <rect width="285" height="96" rx="16" fill="url(#orange)" stroke="#efcca9" stroke-width="3"/>
+    <text x="142" y="42" text-anchor="middle" font-size="24" font-weight="800" fill="#7a4a1f">Simulation</text>
+    <text x="142" y="72" text-anchor="middle" font-size="18" fill="#5f6468">large-scale rollouts</text>
+  </g>
+  <g fill="none" stroke="#2764a6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M394 282 C445 282 459 322 510 322"/>
+    <path d="M394 455 H510"/>
+    <path d="M394 612 C449 612 457 530 510 530"/>
+    <path d="M492 303 L516 322 L492 341"/>
+    <path d="M492 436 L516 455 L492 474"/>
+    <path d="M492 511 L516 530 L492 549"/>
+  </g>
+  <g transform="translate(530 218)" font-family="Inter, Arial, sans-serif">
+    <rect width="390" height="442" rx="22" fill="#ffffff" stroke="#dadde1" stroke-width="3"/>
+    <text x="195" y="55" text-anchor="middle" font-size="28" font-weight="800" fill="#171717">Unified Action Interface</text>
+    <rect x="44" y="92" width="302" height="72" rx="12" fill="#eef5ff"/>
+    <text x="195" y="137" text-anchor="middle" font-size="22" font-weight="800" fill="#143d68">Camera-Space Actions</text>
+    <rect x="44" y="190" width="302" height="72" rx="12" fill="#f1f7f3"/>
+    <text x="195" y="235" text-anchor="middle" font-size="22" font-weight="800" fill="#24513a">Morphology Tokens</text>
+    <rect x="44" y="288" width="302" height="72" rx="12" fill="#fff3e7"/>
+    <text x="195" y="333" text-anchor="middle" font-size="22" font-weight="800" fill="#7a4a1f">Time-Aligned Chunks</text>
+    <text x="195" y="404" text-anchor="middle" font-size="18" fill="#5f6468">reliability-aware human auxiliary loss</text>
+  </g>
+  <g fill="none" stroke="#2764a6" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M940 440 H1018"/>
+    <path d="M1000 420 L1026 440 L1000 460"/>
+  </g>
+  <g transform="translate(1045 218)" font-family="Inter, Arial, sans-serif">
+    <rect width="350" height="442" rx="22" fill="#171717"/>
+    <text x="175" y="62" text-anchor="middle" font-size="28" font-weight="800" fill="#ffffff">Unified VLA Policy</text>
+    <rect x="48" y="104" width="254" height="58" rx="12" fill="#2f3740"/>
+    <text x="175" y="141" text-anchor="middle" font-size="20" font-weight="800" fill="#ffffff">Vision-Language Backbone</text>
+    <rect x="48" y="194" width="254" height="58" rx="12" fill="#2764a6"/>
+    <text x="175" y="231" text-anchor="middle" font-size="20" font-weight="800" fill="#ffffff">Action Expert</text>
+    <path d="M87 326 C132 282 188 373 248 306" fill="none" stroke="#f4b25c" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="87" cy="326" r="14" fill="#ffffff"/>
+    <circle cx="248" cy="306" r="14" fill="#ffffff"/>
+    <text x="175" y="386" text-anchor="middle" font-size="19" fill="#d7dce2">camera-frame action chunks</text>
+  </g>
+</svg>
