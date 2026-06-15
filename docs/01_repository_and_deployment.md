@@ -1,12 +1,12 @@
-# 01. ACE-Ego 0 Project Page Repository And Deployment Notes
+# 01. ACE-Ego-0 Project Page Repository And Deployment Notes
 
-本文档记录 ACE-Ego 0 项目主页仓库当前状态、文件组织、GitHub Pages 部署方式，以及后续更新和推送的推荐流程。
+本文档记录 ACE-Ego-0 项目主页仓库当前状态、文件组织、GitHub Pages 部署方式，以及后续更新和推送的推荐流程。
 
 ## 1. 仓库用途
 
-该仓库用于发布 ACE-Ego 0 论文项目主页：
+该仓库用于发布 ACE-Ego-0 论文项目主页：
 
-**ACE-Ego 0: Unifying Egocentric Human and Robotic Data for VLA Pretraining**
+**ACE-Ego-0: Unifying Egocentric Human and Robotic Data for VLA Pretraining**
 
 默认线上地址：
 

@@ -150,7 +150,7 @@ FINAL_URL:https://acerobotics-vla.github.io/ACE-Ego/
 页面 HTML 中确认包含：
 
 ```text
-ACE-Ego 0
+ACE-Ego-0
 ```
 
 ## 5. 后续更新页面的流程
@@ -228,7 +228,7 @@ curl -sS -L -o /tmp/ace_site.html \
 检查页面内容是否包含当前项目名：
 
 ```bash
-rg "ACE-Ego 0" /tmp/ace_site.html
+rg "ACE-Ego-0" /tmp/ace_site.html
 ```
 
 预期结果：
@@ -240,7 +240,7 @@ FINAL_URL:https://acerobotics-vla.github.io/ACE-Ego/
 
 ## 7. 注意事项
 
-- GitHub Pages URL 仍是 `https://acerobotics-vla.github.io/ACE-Ego/`，这是仓库名决定的路径；网页展示名可以是 `ACE-Ego 0`。
+- GitHub Pages URL 仍是 `https://acerobotics-vla.github.io/ACE-Ego/`，这是仓库名决定的路径；网页展示名可以是 `ACE-Ego-0`。
 - 不要把 GitHub token 写入仓库、文档或聊天记录。
 - 当前仓库中原始视频和论文源文件体积较大，推送前要确认 `.gitignore` 和 staged 文件，避免误提交大文件。
 - 如果 Pages 再次 404，优先检查 Actions 页面中 `Deploy static site to Pages` workflow 的最新 run 是否成功。

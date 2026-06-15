@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="ACE-Ego 0: Unifying Egocentric Human and Robotic Data for VLA Pretraining."
+      content="ACE-Ego-0: Unifying Egocentric Human and Robotic Data for VLA Pretraining."
     >
-    <title>ACE-Ego 0 | Unifying Egocentric Human and Robotic Data</title>
+    <title>ACE-Ego-0 | Unifying Egocentric Human and Robotic Data</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
   </head>
   <body>
     <header class="site-header">
       <nav class="nav-shell" aria-label="Primary navigation">
-        <a class="brand" href="#top">ACE-Ego 0</a>
+        <a class="brand" href="#top">ACE-Ego-0</a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
           <span class="sr-only">Toggle navigation</span>
           <span></span>
@@ -41,7 +41,7 @@
           <img class="hero-logo" src="assets/ACE_Logo.png" alt="ACE Robotics">
           <p class="venue">Project Page · Jun 2026</p>
           <h1>
-            <span class="project-name">ACE-Ego 0:</span>
+            <span class="project-name">ACE-Ego-0:</span>
             <span class="title-text">Unifying Egocentric Human and Robotic Data for VLA Pretraining</span>
           </h1>
 
@@ -90,7 +90,7 @@
               <source src="assets/videos/scoop-coffee.mp4" type="video/mp4">
             </video>
             <figcaption>
-              ACE-Ego 0 transfers mixed-source VLA pretraining to real bimanual manipulation with camera-space action prediction.
+              ACE-Ego-0 transfers mixed-source VLA pretraining to real bimanual manipulation with camera-space action prediction.
             </figcaption>
           </figure>
         </div>
@@ -101,15 +101,15 @@
           <div class="section-heading center">
             <h2>Overview</h2>
             <p>
-              ACE-Ego 0 unifies egocentric human videos, multi-embodiment robot
+              ACE-Ego-0 unifies egocentric human videos, multi-embodiment robot
               demonstrations, and simulation rollouts for VLA pretraining.
             </p>
           </div>
 
           <figure class="figure">
-            <img src="assets/figures/teaser.png" alt="ACE-Ego 0 overview diagram">
+            <img src="assets/figures/teaser.png" alt="ACE-Ego-0 overview diagram">
             <figcaption>
-              ACE-Ego 0 aligns spatial, embodiment, source-quality, and temporal
+              ACE-Ego-0 aligns spatial, embodiment, source-quality, and temporal
               axes across human egocentric videos, robot demonstrations, and
               simulation data.
             </figcaption>
@@ -149,12 +149,12 @@
             not match.
           </p>
           <p>
-            We introduce <strong>ACE-Ego 0</strong>, a unified VLA pretraining
+            We introduce <strong>ACE-Ego-0</strong>, a unified VLA pretraining
             framework that converts human egocentric videos into robot-format
             pseudo-action trajectories, aligns heterogeneous sources through
             camera-space actions, morphology conditioning, and time-aligned action
             chunking, and trains with reliability-aware human auxiliary
-            supervision. ACE-Ego 0 pretrains on 4.53K hours of robot and simulation
+            supervision. ACE-Ego-0 pretrains on 4.53K hours of robot and simulation
             data plus 1.48K hours of pseudo-action-labeled egocentric human data,
             achieving state-of-the-art performance on RoboCasa GR1 TableTop and
             RoboTwin 2.0 with strong real-world bimanual transfer.
@@ -167,13 +167,13 @@
           <div class="section-heading center">
             <h2>Method Overview</h2>
             <p>
-              ACE-Ego 0 resolves spatial, structural, temporal, and label-quality
+              ACE-Ego-0 resolves spatial, structural, temporal, and label-quality
               mismatches between human egocentric video and robot trajectories.
             </p>
           </div>
 
           <figure class="figure method-figure">
-            <img src="assets/figures/method.png" alt="ACE-Ego 0 method architecture">
+            <img src="assets/figures/method.png" alt="ACE-Ego-0 method architecture">
             <figcaption>
               The pretrained VLM feeds an action expert that predicts continuous
               camera-space action chunks with morphology conditioning and flow
@@ -214,14 +214,14 @@
           <div class="section-heading center">
             <h2>Data Construction</h2>
             <p>
-              ACE-Ego 0 converts raw human egocentric videos into robot-compatible
+              ACE-Ego-0 converts raw human egocentric videos into robot-compatible
               pseudo-action trajectories through curation, reconstruction, action
               extraction, and filtering.
             </p>
           </div>
 
           <figure class="figure">
-            <img src="assets/figures/data-pipeline.png" alt="ACE-Ego 0 human video data processing pipeline">
+            <img src="assets/figures/data-pipeline.png" alt="ACE-Ego-0 human video data processing pipeline">
             <figcaption>
               The five-stage processing pipeline curates human video datasets,
               selects valid egocentric clips, reconstructs 3D hands, extracts
@@ -257,7 +257,7 @@
           <div class="section-heading center">
             <h2>Real-Robot Demonstrations</h2>
             <p>
-              ACE-Ego 0 is deployed on a bimanual ARX platform with a head-mounted
+              ACE-Ego-0 is deployed on a bimanual ARX platform with a head-mounted
               camera and camera-space delta end-effector commands.
             </p>
           </div>
@@ -308,7 +308,7 @@
           <div class="section-heading center">
             <h2>Results</h2>
             <p>
-              ACE-Ego 0 improves simulation benchmarks and real bimanual
+              ACE-Ego-0 improves simulation benchmarks and real bimanual
               manipulation against strong VLA baselines.
             </p>
           </div>
@@ -331,7 +331,7 @@
                     <tr><td>ABot-M0</td><td>58.3</td></tr>
                     <tr><td>JoyAI-RA</td><td>63.2</td></tr>
                     <tr><td>DIAL</td><td>70.2</td></tr>
-                    <tr class="ours"><td>ACE-Ego 0</td><td>72.8</td></tr>
+                    <tr class="ours"><td>ACE-Ego-0</td><td>72.8</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -354,7 +354,7 @@
                     <tr><td>LingBot-VLA</td><td>88.56</td><td>86.68</td></tr>
                     <tr><td>ABot-M0</td><td>86.06</td><td>85.08</td></tr>
                     <tr><td>JoyAI-RA</td><td>90.48</td><td>89.28</td></tr>
-                    <tr class="ours"><td>ACE-Ego 0</td><td>91.12</td><td>90.62</td></tr>
+                    <tr class="ours"><td>ACE-Ego-0</td><td>91.12</td><td>90.62</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -377,7 +377,7 @@
           <div class="code-panel">
             <button class="copy-button" type="button" data-copy-target="bibtex">Copy</button>
             <pre id="bibtex"><code>@article{li2026aceego,
-  title   = {ACE-Ego 0: Unifying Egocentric Human and Robotic Data for VLA Pretraining},
+  title   = {ACE-Ego-0: Unifying Egocentric Human and Robotic Data for VLA Pretraining},
   author  = {Li, Hao and Zhao, Ganlong and Liu, Yufei and Hou, Haotian and Ye, Guoquan and Fang, Tongyan and Liu, Chunxiao and Huang, Siyuan and Liu, Jianbo and Wang, Xiaogang and Li, Hongsheng},
   journal = {arXiv preprint},
   year    = {2026}
@@ -389,7 +389,7 @@
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <span>ACE-Ego 0 project page</span>
+        <span>ACE-Ego-0 project page</span>
         <a href="#top">Back to top</a>
       </div>
     </footer>
