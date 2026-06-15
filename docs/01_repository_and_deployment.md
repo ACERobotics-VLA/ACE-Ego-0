@@ -48,7 +48,7 @@ https://github.com/1223haohao/ace_ego_page
 - `script.js`：移动端导航和 BibTeX 复制按钮逻辑。
 - `.github/workflows/pages.yml`：GitHub Pages 静态站点部署 workflow。
 - `assets/ACE_Logo.png`：主页 hero 中使用的 ACE Robotics logo。
-- `assets/figures/`：从 paper 工程复制来的 PNG 图，包括 teaser、method、data pipeline、dataset statics 和实验结果图。
+- `assets/figures/`：从 paper 工程复制来的 PNG 图，包括 teaser、method、data pipeline、fine-tuning coverage 和实验结果图。
 - `assets/posters/`：真实机器人视频的封面帧。
 - `assets/videos/`：网页专用压缩版 MP4 视频。
 
