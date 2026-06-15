@@ -2,7 +2,7 @@
   <img src="assets/ACE_Logo.png" alt="ACE Robotics" width="220">
 </p>
 
-<h1 align="center">ACE-Ego: Unifying Egocentric Human and Robotic Data for VLA Pretraining</h1>
+<h1 align="center">ACE-Ego 0: Unifying Egocentric Human and Robotic Data for VLA Pretraining</h1>
 
 <p align="center">
   <a href="https://github.com/ACERobotics-VLA/ACE-Ego-0"><strong>GitHub</strong></a> ·
@@ -13,19 +13,19 @@
 </p>
 
 <p align="center">
-  <img src="assets/figures/teaser.png" alt="ACE-Ego teaser" width="95%">
+  <img src="assets/figures/teaser.png" alt="ACE-Ego 0 teaser" width="95%">
 </p>
 
 ## 🔥 News
 
-- **2026-06**: ACE-Ego code repository is being prepared for public release.
-- **2026-06**: Project materials for *ACE-Ego: Unifying Egocentric Human and Robotic Data for VLA Pretraining* are under active organization.
+- **2026-06**: ACE-Ego 0 code repository is being prepared for public release.
+- **2026-06**: Project materials for *ACE-Ego 0: Unifying Egocentric Human and Robotic Data for VLA Pretraining* are under active organization.
 
 ## 📖 Overview
 
-**ACE-Ego** is a unified vision-language-action (VLA) pretraining framework that combines egocentric human videos, multi-embodiment robot demonstrations, and simulation rollouts for robot policy learning.
+**ACE-Ego 0** is a unified vision-language-action (VLA) pretraining framework that combines egocentric human videos, multi-embodiment robot demonstrations, and simulation rollouts for robot policy learning.
 
-Large-scale egocentric human videos provide broad real-world interaction coverage, but they do not directly match robot action spaces, embodiments, temporal dynamics, or supervision quality. ACE-Ego addresses these gaps with camera-space actions, morphology conditioning, time-aligned action chunking, and reliability-aware auxiliary supervision.
+Large-scale egocentric human videos provide broad real-world interaction coverage, but they do not directly match robot action spaces, embodiments, temporal dynamics, or supervision quality. ACE-Ego 0 addresses these gaps with camera-space actions, morphology conditioning, time-aligned action chunking, and reliability-aware auxiliary supervision.
 
 ## ✨ Highlights
 
@@ -37,10 +37,10 @@ Large-scale egocentric human videos provide broad real-world interaction coverag
 ## 🧠 Method
 
 <p align="center">
-  <img src="assets/figures/method.png" alt="ACE-Ego method overview" width="95%">
+  <img src="assets/figures/method.png" alt="ACE-Ego 0 method overview" width="95%">
 </p>
 
-ACE-Ego resolves four core mismatches between egocentric human video and robot trajectories:
+ACE-Ego 0 resolves four core mismatches between egocentric human video and robot trajectories:
 
 1. **Spatial mismatch**: Human and robot motions are normalized through camera-space action representations.
 2. **Embodiment mismatch**: Robot morphology and human surrogate embodiment information condition the action model.
@@ -49,9 +49,9 @@ ACE-Ego resolves four core mismatches between egocentric human video and robot t
 
 ## 💻 Repository Status
 
-This repository hosts the official ACE-Ego code release. The public release is being prepared and will include:
+This repository hosts the official ACE-Ego 0 code release. The public release is being prepared and will include:
 
-- training and fine-tuning recipes for ACE-Ego VLA pretraining;
+- training and fine-tuning recipes for ACE-Ego 0 VLA pretraining;
 - data preprocessing utilities for robot, simulation, and egocentric human-video sources;
 - evaluation scripts for RoboCasa GR1 TableTop and RoboTwin 2.0;
 - real-robot deployment notes for the bimanual ARX setup;
@@ -64,7 +64,7 @@ cd ACE-Ego-0
 
 ## 📦 Data and Models
 
-ACE-Ego uses mixed-source embodied data:
+ACE-Ego 0 uses mixed-source embodied data:
 
 - **Robot + simulation data**: 4.53K hours from robot demonstrations and simulation rollouts.
 - **Egocentric human video data**: 1.48K hours converted into robot-format pseudo-action trajectories.
@@ -74,7 +74,7 @@ Dataset and checkpoint release instructions will be added here with the code rel
 
 ## 📊 Results
 
-| Benchmark | Metric | ACE-Ego |
+| Benchmark | Metric | ACE-Ego 0 |
 | --- | ---: | ---: |
 | RoboCasa GR1 TableTop | Average success | **72.8%** |
 | RoboTwin 2.0 Easy | Average success | **91.12%** |
@@ -83,11 +83,11 @@ Dataset and checkpoint release instructions will be added here with the code rel
 
 ## 📝 Citation
 
-If you find ACE-Ego useful, please cite:
+If you find ACE-Ego 0 useful, please cite:
 
 ```bibtex
 @article{li2026aceego,
-  title   = {ACE-Ego: Unifying Egocentric Human and Robotic Data for VLA Pretraining},
+  title   = {ACE-Ego 0: Unifying Egocentric Human and Robotic Data for VLA Pretraining},
   author  = {Li, Hao and Zhao, Ganlong and Liu, Yufei and Hou, Haotian and Ye, Guoquan and Fang, Tongyan and Liu, Chunxiao and Huang, Siyuan and Liu, Jianbo and Wang, Xiaogang and Li, Hongsheng},
   journal = {arXiv preprint},
   year    = {2026}
@@ -96,4 +96,4 @@ If you find ACE-Ego useful, please cite:
 
 ## 📬 Contact
 
-For questions about the ACE-Ego release, please open an issue in this repository after the public repo is available.
+For questions about the ACE-Ego 0 release, please open an issue in this repository after the public repo is available.
