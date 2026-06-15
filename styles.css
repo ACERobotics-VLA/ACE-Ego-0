@@ -174,7 +174,7 @@ h1 {
   display: block;
   max-width: 1180px;
   margin: 14px auto 0;
-  font-size: clamp(1.45rem, 2.35vw, 2.22rem);
+  font-size: clamp(1.25rem, 1.95vw, 1.72rem);
   line-height: 1.16;
   font-weight: 760;
 }

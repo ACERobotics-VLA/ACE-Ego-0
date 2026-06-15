@@ -13,7 +13,7 @@ GitHub Pages.
   real-robot demos, benchmark tables, figures, and BibTeX.
 - `assets/videos/` contains web-compressed MP4 demos for GitHub Pages.
 - `assets/posters/` contains video poster frames.
-- `assets/figures/` contains paper figures copied from the paper project,
+- `assets/figures/` contains web PNG figures rendered from the paper PDFs,
   including the teaser, method, data pipeline, fine-tuning coverage, and result figures.
 - `assets/ACE_Logo.png` contains the ACE Robotics logo used in the hero.
 

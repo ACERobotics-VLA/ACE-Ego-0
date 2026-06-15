@@ -48,7 +48,7 @@ https://github.com/1223haohao/ace_ego_page
 - `script.js`：移动端导航和 BibTeX 复制按钮逻辑。
 - `.github/workflows/pages.yml`：GitHub Pages 静态站点部署 workflow。
 - `assets/ACE_Logo.png`：主页 hero 中使用的 ACE Robotics logo。
-- `assets/figures/`：从 paper 工程复制来的 PNG 图，包括 teaser、method、data pipeline、fine-tuning coverage 和实验结果图。
+- `assets/figures/`：由 paper PDF 渲染得到的网页 PNG 图，包括 teaser、method、data pipeline、fine-tuning coverage 和实验结果图。
 - `assets/posters/`：真实机器人视频的封面帧。
 - `assets/videos/`：网页专用压缩版 MP4 视频。
 
@@ -286,7 +286,34 @@ done
 find assets -type f -printf '%p\t%k KB\n' | sort
 ```
 
-## 11. 视频压缩命令参考
+## 11. 论文 PDF 图转换命令参考
+
+当前网页中的 paper figures 使用 `corl_2026_template_submission/images/*.pdf`
+通过 PyMuPDF 渲染为 PNG，而不是直接使用旧版 PNG。
+
+```bash
+python3 - <<'PY'
+from pathlib import Path
+import fitz
+
+sources = {
+    'teaser.pdf': 'teaser.png',
+    'method.pdf': 'method.png',
+    'data pipeline.pdf': 'data-pipeline.png',
+    'real_robot_bar.pdf': 'real-robot-results.png',
+    'coverage_A_trajectories.pdf': 'coverage-trajectories.png',
+}
+source_dir = Path('corl_2026_template_submission/images')
+out_dir = Path('assets/figures')
+matrix = fitz.Matrix(4.0, 4.0)
+for pdf_name, png_name in sources.items():
+    doc = fitz.open(source_dir / pdf_name)
+    pix = doc[0].get_pixmap(matrix=matrix, alpha=False)
+    pix.save(out_dir / png_name)
+PY
+```
+
+## 12. 视频压缩命令参考
 
 如需从原始视频重新生成网页版视频，可参考：
 
@@ -306,9 +333,9 @@ ffmpeg -y -ss 1 -i "整理视频/原始视频.mp4" \
   "assets/posters/output.jpg"
 ```
 
-## 12. 后续待完善事项
+## 13. 后续待完善事项
 
 - 将 `index.html` 中 Paper、Code、Data 按钮替换成真实链接。
 - 如果论文正式上传 arXiv，更新 BibTeX 中的 `journal` 或 `eprint` 字段。
-- 当前网页先使用 paper 工程导出的 PNG 图；如果后续安装 PDF 转 SVG 工具，可把正式 PDF 图转成 SVG 后替换对应 PNG。
+- 当前网页使用 paper PDF 渲染得到的 PNG 图；如果后续安装 PDF 转 SVG 工具，可把正式 PDF 图转成 SVG 后替换对应 PNG。
 - 如果需要更接近 F1-VLA 风格，可继续补充更多 benchmark video、method figure 和 appendix link。
