@@ -132,10 +132,25 @@ video {
   border-bottom: 1px solid var(--line);
 }
 
-.hero-logo {
-  width: min(220px, 56vw);
-  height: auto;
+.logo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px 30px;
   margin: 0 auto 20px;
+}
+
+.hero-logo {
+  height: auto;
+}
+
+.ace-logo {
+  width: min(220px, 42vw);
+}
+
+.cuhk-logo {
+  width: min(250px, 48vw);
 }
 
 .venue {
