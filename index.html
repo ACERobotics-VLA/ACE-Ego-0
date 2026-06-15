@@ -22,9 +22,13 @@
           <span></span>
         </button>
         <div class="nav-links" id="nav-links">
+          <a href="#video">Video</a>
+          <a href="#overview">Overview</a>
           <a href="#abstract">Abstract</a>
           <a href="#method">Method</a>
-          <a href="#demos">Videos</a>
+          <a href="#data">Data</a>
+          <a href="#human-video">Human Video</a>
+          <a href="#real-robot">Real Robot</a>
           <a href="#results">Results</a>
           <a href="#citation">Citation</a>
         </div>
@@ -32,7 +36,7 @@
     </header>
 
     <main id="top">
-      <section class="hero">
+      <section class="hero" id="video">
         <div class="container narrow center">
           <img class="hero-logo" src="assets/ACE_Logo.png" alt="ACE Robotics">
           <p class="venue">Project Page · Jun 2026</p>
@@ -92,6 +96,46 @@
         </div>
       </section>
 
+      <section class="section overview-section" id="overview">
+        <div class="container">
+          <div class="section-heading center">
+            <h2>Overview</h2>
+            <p>
+              ACE-Ego unifies egocentric human videos, multi-embodiment robot
+              demonstrations, and simulation rollouts for VLA pretraining.
+            </p>
+          </div>
+
+          <figure class="figure">
+            <img src="assets/figures/teaser.png" alt="ACE-Ego overview diagram">
+            <figcaption>
+              ACE-Ego aligns spatial, embodiment, source-quality, and temporal
+              axes across human egocentric videos, robot demonstrations, and
+              simulation data.
+            </figcaption>
+          </figure>
+
+          <div class="stat-grid" aria-label="Key results">
+            <article>
+              <strong>6.0K+ hrs</strong>
+              <span>mixed embodied pretraining data</span>
+            </article>
+            <article>
+              <strong>72.8%</strong>
+              <span>RoboCasa GR1 TableTop success</span>
+            </article>
+            <article>
+              <strong>91.12 / 90.62%</strong>
+              <span>RoboTwin 2.0 Easy / Hard success</span>
+            </article>
+            <article>
+              <strong>78.3%</strong>
+              <span>real bimanual ARX success</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="section" id="abstract">
         <div class="container narrow">
           <h2>Abstract</h2>
@@ -118,29 +162,6 @@
         </div>
       </section>
 
-      <section class="section compact">
-        <div class="container">
-          <div class="stat-grid" aria-label="Key results">
-            <article>
-              <strong>6.0K+ hrs</strong>
-              <span>mixed embodied pretraining data</span>
-            </article>
-            <article>
-              <strong>72.8%</strong>
-              <span>RoboCasa GR1 TableTop success</span>
-            </article>
-            <article>
-              <strong>91.12 / 90.62%</strong>
-              <span>RoboTwin 2.0 Easy / Hard success</span>
-            </article>
-            <article>
-              <strong>78.3%</strong>
-              <span>real bimanual ARX success</span>
-            </article>
-          </div>
-        </div>
-      </section>
-
       <section class="section" id="method">
         <div class="container">
           <div class="section-heading center">
@@ -150,15 +171,6 @@
               mismatches between human egocentric video and robot trajectories.
             </p>
           </div>
-
-          <figure class="figure">
-            <img src="assets/figures/teaser.png" alt="ACE-Ego overview diagram">
-            <figcaption>
-              ACE-Ego pretrains a unified VLA policy on human egocentric videos,
-              multi-embodiment robot demonstrations, and simulation rollouts,
-              aligning spatial, embodiment, source-quality, and temporal axes.
-            </figcaption>
-          </figure>
 
           <figure class="figure method-figure">
             <img src="assets/figures/method.png" alt="ACE-Ego method architecture">
@@ -197,10 +209,10 @@
         </div>
       </section>
 
-      <section class="section shaded">
+      <section class="section shaded" id="data">
         <div class="container">
           <div class="section-heading center">
-            <h2>Egocentric Data Processing</h2>
+            <h2>Data Construction</h2>
             <p>
               ACE-Ego converts raw human egocentric videos into robot-compatible
               pseudo-action trajectories through curation, reconstruction, action
@@ -220,13 +232,13 @@
         </div>
       </section>
 
-      <section class="section">
+      <section class="section" id="human-video">
         <div class="container">
           <div class="section-heading center">
-            <h2>Human Video Improves Data-Scarce Fine-Tuning</h2>
+            <h2>Human Video Coverage</h2>
             <p>
-              Task-matched egocentric human videos cover broader action regions
-              than limited robot demonstrations and recover downstream success.
+              Task-matched egocentric human videos provide complementary action
+              coverage for data-scarce robot fine-tuning tasks.
             </p>
           </div>
 
@@ -240,7 +252,7 @@
         </div>
       </section>
 
-      <section class="section" id="demos">
+      <section class="section shaded" id="real-robot">
         <div class="container">
           <div class="section-heading center">
             <h2>Real-Robot Demonstrations</h2>
@@ -291,7 +303,7 @@
         </div>
       </section>
 
-      <section class="section shaded" id="results">
+      <section class="section" id="results">
         <div class="container">
           <div class="section-heading center">
             <h2>Results</h2>

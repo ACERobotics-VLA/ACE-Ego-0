@@ -86,7 +86,7 @@ video {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 18px;
   color: var(--muted);
   font-size: 0.95rem;
 }
@@ -293,6 +293,10 @@ figcaption {
 
 .section.compact {
   padding: 34px 0;
+}
+
+.overview-section .stat-grid {
+  margin-top: 18px;
 }
 
 .section.shaded {
@@ -508,6 +512,15 @@ pre {
 }
 
 @media (max-width: 920px) {
+  .nav-shell {
+    gap: 14px;
+  }
+
+  .nav-links {
+    gap: 12px;
+    font-size: 0.88rem;
+  }
+
   .stat-grid,
   .feature-grid,
   .video-grid,
