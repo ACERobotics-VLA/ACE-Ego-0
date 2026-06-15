@@ -20,10 +20,9 @@ https://github.com/ACERobotics-VLA/ACE-Ego
 
 ```text
 origin   -> https://github.com/ACERobotics-VLA/ACE-Ego.git
-personal -> https://github.com/1223haohao/ace_ego_page.git
 ```
 
-后续默认只推送 `origin`。
+后续只推送 `origin`。
 
 ## 2. 页面是如何生成的
 

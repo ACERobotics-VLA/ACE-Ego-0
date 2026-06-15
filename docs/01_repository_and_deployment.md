@@ -20,12 +20,6 @@ https://acerobotics-vla.github.io/ACE-Ego/
 https://github.com/ACERobotics-VLA/ACE-Ego
 ```
 
-旧个人仓库镜像：
-
-```text
-https://github.com/1223haohao/ace_ego_page
-```
-
 当前主页是纯静态站点，不依赖 Node、Vite、React 或后端服务。GitHub Pages 会直接部署仓库根目录中的静态文件。
 
 ## 2. 主要文件结构
@@ -138,10 +132,9 @@ git --git-dir=/tmp/ace_ego_page.git --work-tree=/data/lh/projects/ace_ego_page s
 
 ```text
 origin   -> https://github.com/ACERobotics-VLA/ACE-Ego.git
-personal -> https://github.com/1223haohao/ace_ego_page.git
 ```
 
-`origin` 是后续默认推送目标；`personal` 仅作为旧个人仓库镜像保留。
+`origin` 是后续唯一默认推送目标。
 
 近期提交：
 
@@ -167,7 +160,7 @@ git credential approve
 ```text
 protocol=https
 host=github.com
-username=1223haohao
+username=YOUR_GITHUB_USERNAME
 password=YOUR_TOKEN_HERE
 
 ```
@@ -209,7 +202,7 @@ git --git-dir=/tmp/ace_ego_page.git \
   remote add origin https://github.com/ACERobotics-VLA/ACE-Ego.git
 ```
 
-如果本地 `origin` 仍指向旧个人仓库，改成组织仓库：
+如果本地 `origin` 不是组织仓库，改成组织仓库：
 
 ```bash
 git --git-dir=/tmp/ace_ego_page.git \
