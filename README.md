@@ -15,6 +15,7 @@ GitHub Pages.
 - `assets/posters/` contains video poster frames.
 - `assets/figures/` contains paper figures copied from the paper project,
   including the teaser, method, data pipeline, and result figures.
+- `assets/ACE_Logo.png` contains the ACE Robotics logo used in the hero.
 
 The raw `整理视频/` directory and `整理视频.zip` are intentionally ignored because
 they are too large for normal GitHub hosting.

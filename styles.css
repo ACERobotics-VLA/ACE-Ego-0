@@ -127,13 +127,19 @@ video {
 }
 
 .hero {
-  padding: 72px 0 44px;
+  padding: 58px 0 48px;
   background: var(--paper);
   border-bottom: 1px solid var(--line);
 }
 
+.hero-logo {
+  width: min(220px, 56vw);
+  height: auto;
+  margin: 0 auto 20px;
+}
+
 .venue {
-  margin: 0 0 14px;
+  margin: 0 0 16px;
   color: var(--accent);
   font-weight: 800;
   text-transform: uppercase;
@@ -149,11 +155,26 @@ p {
 
 h1 {
   margin: 0 auto;
-  max-width: 980px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2.55rem, 5.4vw, 4.9rem);
-  line-height: 1.02;
-  font-weight: 700;
+  max-width: 1040px;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  font-size: clamp(2.2rem, 4.9vw, 4.55rem);
+  line-height: 1.06;
+  font-weight: 850;
+}
+
+.project-name {
+  display: block;
+  color: var(--accent-dark);
+  font-size: 1.12em;
+}
+
+.title-text {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.68em;
+  font-weight: 760;
 }
 
 h2 {
@@ -178,19 +199,32 @@ p {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 7px 14px;
-  margin: 28px auto 0;
+  gap: 8px 15px;
+  max-width: 1040px;
+  margin: 30px auto 0;
   color: var(--accent-dark);
   font-weight: 700;
+  line-height: 1.45;
+}
+
+sup {
+  font-size: 0.68em;
+  line-height: 0;
+  vertical-align: super;
 }
 
 .affiliations {
-  margin: 14px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 18px;
+  margin: 16px auto 0;
   color: var(--muted);
+  font-size: 0.98rem;
 }
 
 .note {
-  margin: 5px 0 0;
+  margin: 7px 0 0;
   color: var(--muted);
   font-size: 0.92rem;
 }
@@ -200,7 +234,7 @@ p {
   flex-wrap: wrap;
   justify-content: center;
   gap: 11px;
-  margin: 30px 0 36px;
+  margin: 28px 0 38px;
 }
 
 .button {
@@ -309,11 +343,12 @@ figcaption {
 }
 
 .method-figure {
-  margin-top: 18px;
+  margin-top: 20px;
 }
 
 .figure img {
   width: 100%;
+  background: #ffffff;
 }
 
 .feature-grid,
@@ -413,7 +448,8 @@ tr:last-child td {
 }
 
 .results-figures {
-  margin-top: 22px;
+  max-width: 860px;
+  margin: 24px auto 0;
 }
 
 .code-panel {
@@ -531,7 +567,7 @@ pre {
   }
 
   h1 {
-    font-size: clamp(2.1rem, 12vw, 3.2rem);
+    font-size: clamp(2rem, 11vw, 3.05rem);
   }
 
   .stat-grid {

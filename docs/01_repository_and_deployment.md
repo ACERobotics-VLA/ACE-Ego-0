@@ -33,6 +33,7 @@ https://github.com/1223haohao/ace_ego_page
 ├── .gitignore
 ├── .github/workflows/pages.yml
 ├── assets/
+│   ├── ACE_Logo.png
 │   ├── figures/
 │   ├── posters/
 │   └── videos/
@@ -46,6 +47,7 @@ https://github.com/1223haohao/ace_ego_page
 - `styles.css`：页面排版和响应式样式。
 - `script.js`：移动端导航和 BibTeX 复制按钮逻辑。
 - `.github/workflows/pages.yml`：GitHub Pages 静态站点部署 workflow。
+- `assets/ACE_Logo.png`：主页 hero 中使用的 ACE Robotics logo。
 - `assets/figures/`：从 paper 工程复制来的 PNG 图，包括 teaser、method、data pipeline、dataset statics 和实验结果图。
 - `assets/posters/`：真实机器人视频的封面帧。
 - `assets/videos/`：网页专用压缩版 MP4 视频。
