@@ -13,8 +13,8 @@ GitHub Pages.
   real-robot demos, benchmark tables, figures, and BibTeX.
 - `assets/videos/` contains web-compressed MP4 demos for GitHub Pages.
 - `assets/posters/` contains video poster frames.
-- `assets/figures/` contains paper figures copied from the paper project.
-- `assets/ace-ego-overview.svg` contains the project overview diagram.
+- `assets/figures/` contains paper figures copied from the paper project,
+  including the teaser, method, data pipeline, and result figures.
 
 The raw `整理视频/` directory and `整理视频.zip` are intentionally ignored because
 they are too large for normal GitHub hosting.

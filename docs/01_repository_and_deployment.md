@@ -33,7 +33,6 @@ https://github.com/1223haohao/ace_ego_page
 ├── .gitignore
 ├── .github/workflows/pages.yml
 ├── assets/
-│   ├── ace-ego-overview.svg
 │   ├── figures/
 │   ├── posters/
 │   └── videos/
@@ -47,8 +46,7 @@ https://github.com/1223haohao/ace_ego_page
 - `styles.css`：页面排版和响应式样式。
 - `script.js`：移动端导航和 BibTeX 复制按钮逻辑。
 - `.github/workflows/pages.yml`：GitHub Pages 静态站点部署 workflow。
-- `assets/ace-ego-overview.svg`：主页上的方法总览图。
-- `assets/figures/`：从 paper 工程复制来的实验图。
+- `assets/figures/`：从 paper 工程复制来的 PNG 图，包括 teaser、method、data pipeline、dataset statics 和实验结果图。
 - `assets/posters/`：真实机器人视频的封面帧。
 - `assets/videos/`：网页专用压缩版 MP4 视频。
 
@@ -264,10 +262,12 @@ https://1223haohao.github.io/ace_ego_page/
 node --check script.js
 ```
 
-检查 SVG XML：
+检查关键 PNG 图是否存在：
 
 ```bash
-python3 -m xml.etree.ElementTree assets/ace-ego-overview.svg
+test -f assets/figures/teaser.png
+test -f assets/figures/method.png
+test -f assets/figures/data-pipeline.png
 ```
 
 检查 HTML 中引用的 assets 是否存在：
@@ -308,5 +308,5 @@ ffmpeg -y -ss 1 -i "整理视频/原始视频.mp4" \
 
 - 将 `index.html` 中 Paper、Code、Data 按钮替换成真实链接。
 - 如果论文正式上传 arXiv，更新 BibTeX 中的 `journal` 或 `eprint` 字段。
-- 如果有正式 teaser 或 method figure，替换 `assets/ace-ego-overview.svg`。
+- 当前网页先使用 paper 工程导出的 PNG 图；如果后续安装 PDF 转 SVG 工具，可把正式 PDF 图转成 SVG 后替换对应 PNG。
 - 如果需要更接近 F1-VLA 风格，可继续补充更多 benchmark video、method figure 和 appendix link。

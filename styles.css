@@ -308,6 +308,10 @@ figcaption {
   box-shadow: 0 10px 26px rgba(20, 30, 45, 0.05);
 }
 
+.method-figure {
+  margin-top: 18px;
+}
+
 .figure img {
   width: 100%;
 }

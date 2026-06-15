@@ -141,10 +141,20 @@
           </div>
 
           <figure class="figure">
-            <img src="assets/ace-ego-overview.svg" alt="ACE-Ego overview diagram">
+            <img src="assets/figures/teaser.png" alt="ACE-Ego overview diagram">
             <figcaption>
-              A single VLA policy is pretrained from egocentric human videos,
-              multi-embodiment robot demonstrations, and simulation rollouts.
+              ACE-Ego pretrains a unified VLA policy on human egocentric videos,
+              multi-embodiment robot demonstrations, and simulation rollouts,
+              aligning spatial, embodiment, source-quality, and temporal axes.
+            </figcaption>
+          </figure>
+
+          <figure class="figure method-figure">
+            <img src="assets/figures/method.png" alt="ACE-Ego method architecture">
+            <figcaption>
+              The pretrained VLM feeds an action expert that predicts continuous
+              camera-space action chunks with morphology conditioning and flow
+              matching.
             </figcaption>
           </figure>
 
@@ -177,6 +187,36 @@
       </section>
 
       <section class="section shaded">
+        <div class="container">
+          <div class="section-heading center">
+            <h2>Egocentric Data Processing</h2>
+            <p>
+              ACE-Ego converts raw human egocentric videos into robot-compatible
+              pseudo-action trajectories through curation, reconstruction, action
+              extraction, and filtering.
+            </p>
+          </div>
+
+          <figure class="figure">
+            <img src="assets/figures/data-pipeline.png" alt="ACE-Ego human video data processing pipeline">
+            <figcaption>
+              The five-stage processing pipeline curates human video datasets,
+              selects valid egocentric clips, reconstructs 3D hands, extracts
+              gripper-style actions, and filters noisy pseudo-actions.
+            </figcaption>
+          </figure>
+
+          <figure class="figure method-figure">
+            <img src="assets/figures/dataset-statics.png" alt="ACE-Ego dataset statistics">
+            <figcaption>
+              Dataset statistics for the mixed-source pretraining pool used by
+              ACE-Ego.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section">
         <div class="container">
           <div class="section-heading center">
             <h2>Human Video Improves Data-Scarce Fine-Tuning</h2>
