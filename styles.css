@@ -278,6 +278,13 @@ sup {
   background: var(--accent-dark);
 }
 
+.button-disabled,
+.button-disabled:hover {
+  background: #8b9198;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
 .teaser,
 .figure,
 .video-card {
