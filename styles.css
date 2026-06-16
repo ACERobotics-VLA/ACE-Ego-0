@@ -150,7 +150,10 @@ video {
 }
 
 .cuhk-logo {
-  width: min(250px, 48vw);
+  width: min(238px, 46vw);
+  padding: 10px 14px;
+  background: #6f176e;
+  border-radius: 6px;
 }
 
 .venue {
