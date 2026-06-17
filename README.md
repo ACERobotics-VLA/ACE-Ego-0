@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://github.com/ACERobotics-VLA/ACE-Ego-0"><strong>GitHub</strong></a> ·
-  <a href="https://arxiv.org/abs/2606.17200"><strong>Paper</strong></a> ·
+  <a href="https://arxiv.org/pdf/2606.17200"><strong>Paper</strong></a> ·
   <a href="#-overview"><strong>Overview</strong></a> ·
   <a href="#-repository-status"><strong>Code (Coming Soon)</strong></a> ·
   <a href="#-data-and-models"><strong>Data (Coming Soon)</strong></a> ·
