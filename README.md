@@ -8,7 +8,7 @@
 
 <p align="center">
   <a href="https://github.com/ACERobotics-VLA/ACE-Ego-0"><strong>GitHub</strong></a> ·
-  <a href="https://acerobotics-vla.github.io/ACE-Ego-0/paper.html"><strong>Paper</strong></a> ·
+  <a href="https://arxiv.org/abs/2606.17200"><strong>Paper</strong></a> ·
   <a href="#-overview"><strong>Overview</strong></a> ·
   <a href="#-repository-status"><strong>Code (Coming Soon)</strong></a> ·
   <a href="#-data-and-models"><strong>Data (Coming Soon)</strong></a> ·
@@ -89,11 +89,14 @@ Dataset and checkpoint release instructions will be added here with the code rel
 If you find ACE-Ego-0 useful, please cite:
 
 ```bibtex
-@article{li2026aceego,
-  title   = {ACE-Ego-0: Unifying Egocentric Human and Robotic Data for VLA Pretraining},
-  author  = {Li, Hao and Zhao, Ganlong and Liu, Yufei and Hou, Haotian and Ye, Guoquan and Fang, Tongyan and Liu, Chunxiao and Huang, Siyuan and Liu, Jianbo and Wang, Xiaogang and Li, Hongsheng},
-  journal = {arXiv preprint},
-  year    = {2026}
+@misc{li2026aceego0unifyingegocentrichuman,
+  title         = {ACE-Ego-0: Unifying Egocentric Human and Robotic Data for VLA Pretraining},
+  author        = {Hao Li and Ganlong Zhao and Yufei Liu and Haotian Hou and Guoquan Ye and Tongyan Fang and Chunxiao Liu and Siyuan Huang and Jianbo Liu and Xiaogang Wang and Hongsheng Li},
+  year          = {2026},
+  eprint        = {2606.17200},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.RO},
+  url           = {https://arxiv.org/abs/2606.17200}
 }
 ```
 
