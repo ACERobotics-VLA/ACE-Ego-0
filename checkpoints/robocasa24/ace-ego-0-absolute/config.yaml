@@ -1,0 +1,51 @@
+run_id: ace_ego_0_robocasa24_absolute
+framework:
+  name: ACE-Ego-0
+  qwenvl:
+    base_vlm: qwen3-vl-4b-instruct
+  action_model:
+    action_dim: 23
+    state_dim: 23
+    action_horizon: 30
+    future_action_window_size: 29
+    past_action_window_size: 0
+    max_seq_len: 1024
+    add_pos_embed: true
+    num_timestep_buckets: 1000
+    num_inference_timesteps: 4
+    num_target_vision_tokens: 32
+    enable_state_input: true
+    state_injection_mode: timestep_conditioning
+    state_timestep_mode: concat
+    enable_urdf_input: true
+    urdf_cache_dir: assets/urdf_cache
+    urdf_auto_build_cache: true
+    urdf_encoder_hidden_dim: 256
+    urdf_encoder_layers: 2
+    urdf_token_dim: 1024
+    urdf_use_body_token: true
+    urdf_use_chain_token: true
+    diffusion_model_cfg:
+      attention_head_dim: 64
+      dropout: 0.2
+      final_dropout: true
+      input_embedding_dim: 1024
+      interleave_self_attention: false
+      norm_type: ada_norm
+      num_attention_heads: 16
+      num_layers: 36
+      output_dim: 1024
+      positional_embeddings: null
+      cross_attention_dim: 2560
+datasets:
+  vla_data:
+    robot_name: GR1
+    include_state: true
+    rot_norm_mode: q99
+    trans_norm_mode: q99
+    gripper_norm_mode: q99
+    delta_action: false
+    CoT_prompt: '{instruction}'
+    language_source: episode_remarks
+    image_size: [224, 224]
+    preserve_raw_image_size: false
