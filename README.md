@@ -121,19 +121,29 @@ python -m pip install \
 python -m pip install "huggingface_hub>=0.34,<1"
 
 # Inference dependencies and this repository.
+# Flash Attention is installed separately below from a prebuilt wheel.
 python -m pip install -r requirements.txt
 python -m pip install -e .
+
+# einops is required by the ACE-Ego-0 model runtime.
+python -m pip install einops
 ```
 
 Install Flash Attention 2.8.3 using the prebuilt wheel for Python 3.10, CUDA 12, and PyTorch 2.6:
 
 ```bash
-python -m pip install einops
 python -m pip install \
   https://github.com/mjun0812/flash-attention-prebuild-wheels/releases/download/v0.7.16/flash_attn-2.8.3%2Bcu124torch2.6-cp310-cp310-linux_x86_64.whl
 ```
 
 If this wheel is not compatible with the local driver or PyTorch installation, install the matching Flash Attention build for the local CUDA/PyTorch combination before evaluation.
+
+After installation, confirm the runtime dependencies and model environment are complete:
+
+```bash
+python -m pip check
+python -c "import torch, flash_attn; print(torch.__version__, flash_attn.__version__)"
+```
 
 ### Install RoboCasa and tabletop assets
 
