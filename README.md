@@ -193,10 +193,6 @@ checkpoints/robocasa24/
 The `.pt` files contain the complete fine-tuned Qwen3-VL-4B-Instruct and ACE-Ego-0 state dictionaries. The matching `config.yaml` and `runtime_merged_dataset_statistics.json` are required for correct inference and must not be mixed between Absolute and Delta policies.
 
 ```bash
-# Login is needed for private Hub repositories and recommended for stable downloads.
-hf auth login
-hf auth whoami
-
 HF_REPO_ID="acerobotics2025/ACE-Ego-0"
 
 hf download "$HF_REPO_ID" \
