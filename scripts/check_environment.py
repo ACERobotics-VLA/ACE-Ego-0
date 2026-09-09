@@ -32,6 +32,14 @@ def _distribution_version(distribution: str) -> str | None:
         return None
 
 
+def _version_matches(distribution: str, expected: str) -> bool:
+    """Compare package versions while tolerating wheel-local build suffixes."""
+    actual = _distribution_version(distribution)
+    if actual is None:
+        return False
+    return actual == expected or actual.startswith(f"{expected}+")
+
+
 def _has_files(path: Path) -> bool:
     """Return whether a directory contains at least one regular file."""
     return path.is_dir() and any(candidate.is_file() for candidate in path.rglob("*"))
@@ -46,7 +54,7 @@ def main() -> int:
 
     for distribution, expected in EXPECTED_VERSIONS.items():
         actual = _distribution_version(distribution)
-        if actual != expected:
+        if not _version_matches(distribution, expected):
             failures.append(f"{distribution}=={expected} is required; found {actual or 'not installed'}")
         else:
             LOGGER.info("%s==%s", distribution, actual)

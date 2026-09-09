@@ -15,6 +15,7 @@ dependencies = [
   "transformers==4.57.0",
   "accelerate>=1.5,<2",
   "flash-attn==2.8.3",
+  "diffusers",
   "omegaconf==2.3.0",
   "pyyaml>=6.0",
   "numpy==1.26.4",

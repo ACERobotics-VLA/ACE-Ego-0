@@ -130,7 +130,7 @@ Install Flash Attention 2.8.3 using the prebuilt wheel for Python 3.10, CUDA 12,
 ```bash
 python -m pip install einops
 python -m pip install \
-  https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3%2Bcu12torch2.6cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
+  https://github.com/mjun0812/flash-attention-prebuild-wheels/releases/download/v0.7.16/flash_attn-2.8.3%2Bcu124torch2.6-cp310-cp310-linux_x86_64.whl
 ```
 
 If this wheel is not compatible with the local driver or PyTorch installation, install the matching Flash Attention build for the local CUDA/PyTorch combination before evaluation.
