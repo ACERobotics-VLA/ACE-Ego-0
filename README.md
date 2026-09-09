@@ -1,22 +1,12 @@
-<p align="center">
-  <img src="assets/ACE_Logo.png" alt="ACE Robotics" height="72">
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="assets/cuhk_logo.png" alt="The Chinese University of Hong Kong" height="72">
-</p>
-
 <h1 align="center">ACE-Ego-0: Unifying Egocentric Human and Robotic Data for VLA Pretraining</h1>
 
 <p align="center">
-  <a href="https://github.com/ACERobotics-VLA/ACE-Ego-0"><strong>GitHub</strong></a> ·
+  <a href="https://acerobotics2025.github.io/ACE-Ego-0/"><strong>Project Page</strong></a> ·
   <a href="https://arxiv.org/pdf/2606.17200"><strong>Paper</strong></a> ·
   <a href="#-overview"><strong>Overview</strong></a> ·
   <a href="#-repository-status"><strong>Code</strong></a> ·
   <a href="#-data-and-models"><strong>Data and Models</strong></a> ·
   <a href="#-citation"><strong>Citation</strong></a>
-</p>
-
-<p align="center">
-  <img src="assets/figures/teaser.png" alt="ACE-Ego-0 teaser" width="95%">
 </p>
 
 ## 🔥 News
@@ -39,10 +29,6 @@ Large-scale egocentric human videos provide broad real-world interaction coverag
 
 ## 🧠 Method
 
-<p align="center">
-  <img src="assets/figures/method.png" alt="ACE-Ego-0 method overview" width="95%">
-</p>
-
 ACE-Ego-0 resolves four core mismatches between egocentric human video and robot trajectories:
 
 1. **Spatial mismatch**: Human and robot motions are normalized through camera-space action representations.
@@ -52,7 +38,9 @@ ACE-Ego-0 resolves four core mismatches between egocentric human video and robot
 
 ## 💻 Repository Status
 
-This repository hosts the official ACE-Ego-0 project page and the inference-only release for **GR1 RoboCasa 24**.
+This repository provides the official inference-only source release for **GR1 RoboCasa 24**.
+
+The project page is hosted separately at [https://acerobotics2025.github.io/ACE-Ego-0/](https://acerobotics2025.github.io/ACE-Ego-0/).
 
 The public release includes:
 
@@ -78,16 +66,9 @@ evaluation/robocasa24/     RoboCasa task runner, websocket server, and Mink IK
 scripts/                   Environment setup, checks, smoke tests, and evaluation
 assets/                    GR1 URDF/meshes, URDF cache, and Qwen lightweight files
 checkpoints/robocasa24/    Configs and normalization statistics for both policies
-index.html                 ACE-Ego-0 project page
 ```
 
-The original project-page files remain in this repository. `index.html` contains the paper overview, figures, real-robot demonstrations, benchmark results, and BibTeX citation. To preview the page locally:
-
-```bash
-python3 -m http.server 8000
-```
-
-Then open `http://localhost:8000`. GitHub Pages can deploy the repository root containing `index.html`.
+The project page is maintained in a separate repository and is deployed at <https://acerobotics2025.github.io/ACE-Ego-0/>.
 
 ## 📦 Data and Models
 
