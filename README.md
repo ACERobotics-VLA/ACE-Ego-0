@@ -10,8 +10,9 @@
   <a href="https://acerobotics2025.github.io/ACE-Ego-0/"><strong>Project Page</strong></a> ·
   <a href="https://arxiv.org/pdf/2606.17200"><strong>Paper</strong></a> ·
   <a href="#-overview"><strong>Overview</strong></a> ·
-  <a href="#-repository-status"><strong>Code</strong></a> ·
-  <a href="#-data-and-models"><strong>Data and Models</strong></a> ·
+  <a href="#-code"><strong>Code</strong></a> ·
+  <a href="#-models"><strong>Models</strong></a> ·
+  <a href="#-results"><strong>Results</strong></a> ·
   <a href="#-citation"><strong>Citation</strong></a>
 </p>
 
@@ -48,50 +49,6 @@ ACE-Ego-0 resolves four core mismatches between egocentric human video and robot
 3. **Temporal mismatch**: Action chunking aligns heterogeneous video and trajectory horizons.
 4. **Label-quality mismatch**: Reliable robot actions supervise the primary objective, while noisier human pseudo-actions contribute through auxiliary losses.
 
-## 💻 Repository Status
-
-This repository provides the official inference-only source release for **GR1 RoboCasa 24**.
-
-The project page is hosted separately at [https://acerobotics2025.github.io/ACE-Ego-0/](https://acerobotics2025.github.io/ACE-Ego-0/).
-
-The public release includes:
-
-- paper-aligned ACE-Ego-0 policy code;
-- a Qwen3-VL wrapper and flow-matching action expert;
-- GR1 URDF conditioning and Mink inverse kinematics;
-- the RoboCasa 24 task catalog and local websocket policy server;
-- environment installation, smoke-test, and evaluation scripts;
-- Absolute Action and Delta Action model bundles distributed through Hugging Face.
-
-Training and fine-tuning code, training data, data preprocessing utilities, optimizer state, internal cluster launchers, RoboTwin evaluation code, and real-robot ARX deployment code are not included in this inference release.
-
-```bash
-git clone https://github.com/ACERobotics-VLA/ACE-Ego-0.git
-cd ACE-Ego-0
-```
-
-### Public source layout
-
-```text
-src/ace_ego_0/             ACE-Ego-0 policy and model components
-evaluation/robocasa24/     RoboCasa task runner, websocket server, and Mink IK
-scripts/                   Environment setup, checks, smoke tests, and evaluation
-assets/                    GR1 URDF/meshes, URDF cache, and Qwen lightweight files
-checkpoints/robocasa24/    Configs and normalization statistics for both policies
-```
-
-The project page is maintained in a separate repository and is deployed at <https://acerobotics2025.github.io/ACE-Ego-0/>.
-
-## 📦 Data and Models
-
-ACE-Ego-0 uses mixed-source embodied data:
-
-- **Robot + simulation data**: 4.53K hours from robot demonstrations and simulation rollouts.
-- **Egocentric human video data**: 1.48K hours converted into robot-format pseudo-action trajectories.
-- **Real-robot evaluation**: Six bimanual ARX manipulation tasks with head-mounted camera observations.
-
-The current public release does not redistribute the training datasets. It provides the two GR1 RoboCasa 24 inference bundles described below.
-
 ## 📊 Results
 
 | Benchmark | Metric | ACE-Ego-0 |
@@ -101,22 +58,15 @@ The current public release does not redistribute the training datasets. It provi
 | RoboTwin 2.0 Hard | Average success | **90.62%** |
 | Real bimanual ARX tasks | Average success | **78.3%** |
 
-## 🖥️ Model and RoboCasa Environment
+## 💻 Code
 
-The released evaluator was verified with:
+This repository contains the ACE-Ego-0 codebase. Training code and additional benchmark support will be added progressively.
 
-- Python 3.10.
-- An NVIDIA GPU with a CUDA 12.4-compatible driver. The release was tested on an RTX 4090.
-- PyTorch 2.6.0 and torchvision 0.21.0.
-- Transformers 4.57.0 and Accelerate 1.12.0.
-- Flash Attention 2.8.3.
-- NumPy 1.26.4, MuJoCo 3.2.6, and Mink 0.0.5.
-- RoboSuite commit `51cc01785bab80ffeed20da15e67d7dd4140e76a`.
-- GR1 RoboCasa task commit `4840e671596f93ca03651524b9f72ffb1aadfeff`.
+### Current release: GR1 RoboCasa 24
 
-The machine must provide `conda`, `bash`, `git`, `curl` or `wget`, `tar`, and a working NVIDIA driver. The commands below assume a Linux headless workstation.
+The currently available code provides inference and evaluation for the **GR1 RoboCasa 24** benchmark.
 
-### Install the model environment
+### Install
 
 ```bash
 conda create -n ace-ego-robocasa24 python=3.10 -y
@@ -129,15 +79,9 @@ python -m pip install \
   torch==2.6.0 torchvision==0.21.0 \
   --index-url https://download.pytorch.org/whl/cu124
 
-# Hugging Face CLI used to download the model bundles.
 python -m pip install "huggingface_hub>=0.34,<1"
-
-# Inference dependencies and this repository.
-# Flash Attention is installed separately below from a prebuilt wheel.
 python -m pip install -r requirements.txt
 python -m pip install -e .
-
-# einops is required by the ACE-Ego-0 model runtime.
 python -m pip install einops
 ```
 
@@ -148,16 +92,16 @@ python -m pip install \
   https://github.com/mjun0812/flash-attention-prebuild-wheels/releases/download/v0.7.16/flash_attn-2.8.3%2Bcu124torch2.6-cp310-cp310-linux_x86_64.whl
 ```
 
-If this wheel is not compatible with the local driver or PyTorch installation, install the matching Flash Attention build for the local CUDA/PyTorch combination before evaluation.
+If this wheel is not compatible with the local driver or PyTorch installation, install the matching Flash Attention build for the local CUDA/PyTorch combination.
 
-After installation, confirm the runtime dependencies and model environment are complete:
+Verify the Python environment:
 
 ```bash
 python -m pip check
 python -c "import torch, flash_attn; print(torch.__version__, flash_attn.__version__)"
 ```
 
-### Install RoboCasa and tabletop assets
+### Install RoboCasa
 
 RoboSuite and the GR1 RoboCasa task package are installed separately because they are external dependencies. From the repository root, run:
 
@@ -165,54 +109,46 @@ RoboSuite and the GR1 RoboCasa task package are installed separately because the
 bash scripts/install_robocasa.sh
 ```
 
-The script:
-
-1. Downloads source archives at the pinned RoboSuite and GR1 RoboCasa commits.
-2. Stores the external sources below `third_party/` and installs both packages in editable mode.
-3. Downloads RoboCasa's Sketchfab and Lightwheel tabletop assets.
-4. Runs `scripts/check_environment.py` to verify package versions, assets, imports, and registration of all 24 GR1 environments.
-
-The asset download can take substantial time and disk space, but it is safe to rerun. To install only the Python packages and defer asset download:
+To install only the Python packages and defer the large asset download:
 
 ```bash
 SKIP_ROBOCASA_ASSETS=1 bash scripts/install_robocasa.sh
 ```
 
-Before evaluation on a headless machine:
+On a headless machine, set:
 
 ```bash
 export MUJOCO_GL=egl
 export MUJOCO_EGL_DEVICE_ID=0
+```
+
+Then verify the simulator setup:
+
+```bash
 python scripts/check_environment.py
 ```
 
-Do not start inference if the checker reports missing assets or unregistered environments. Fix the installation issue and rerun the checker first.
+Do not start inference if the checker reports missing assets or unregistered environments.
 
-## 🤗 Hugging Face Checkpoint Bundles
+### Source layout
 
-The two released policies are hosted at:
+```text
+src/ace_ego_0/             ACE-Ego-0 policy and model components
+evaluation/robocasa24/     RoboCasa task runner, websocket server, and Mink IK
+scripts/                   Environment setup, checks, smoke tests, and evaluation
+assets/                    GR1 URDF/meshes, URDF cache, and Qwen lightweight files
+checkpoints/robocasa24/    Configs and normalization statistics for the policies
+```
+
+## 🤗 Models
+
+The currently released GR1 RoboCasa 24 checkpoints are hosted at:
 
 ```text
 https://huggingface.co/acerobotics2025/ACE-Ego-0
 ```
 
-The Hub repository mirrors the local checkpoint layout:
-
-```text
-checkpoints/robocasa24/
-├── ace-ego-0-absolute/
-│   ├── config.yaml
-│   └── checkpoints/
-│       ├── ace_ego_0_robocasa24_absolute.pt
-│       └── runtime_merged_dataset_statistics.json
-└── ace-ego-0-delta/
-    ├── config.yaml
-    └── checkpoints/
-        ├── ace_ego_0_robocasa24_delta.pt
-        └── runtime_merged_dataset_statistics.json
-```
-
-The `.pt` files contain the complete fine-tuned Qwen3-VL-4B-Instruct and ACE-Ego-0 state dictionaries. The matching `config.yaml` and `runtime_merged_dataset_statistics.json` are required for correct inference and must not be mixed between Absolute and Delta policies.
+Download both bundles:
 
 ```bash
 HF_REPO_ID="acerobotics2025/ACE-Ego-0"
@@ -228,17 +164,21 @@ hf download "$HF_REPO_ID" \
   --local-dir .
 ```
 
-The downloaded `.pt` files are ignored by Git. If you store a bundle elsewhere, pass the local weight path explicitly; the weight file must remain alongside its matching config and statistics files:
+Each checkpoint bundle contains:
+
+- `config.yaml`
+- `checkpoints/ace_ego_0_robocasa24_*.pt`
+- `checkpoints/runtime_merged_dataset_statistics.json`
+
+The `.pt` files contain the complete fine-tuned Qwen3-VL-4B-Instruct and ACE-Ego-0 state dictionaries. The matching config and normalization statistics must not be mixed between Absolute and Delta policies.
+
+If you store a bundle elsewhere, pass the checkpoint path explicitly:
 
 ```bash
-CHECKPOINT="/absolute/path/to/ace_ego_0_robocasa24_absolute.pt"
-URDF="/absolute/path/to/GR1T2_with_hands.urdf"
-
-python scripts/evaluate.py \
-  --checkpoint "$CHECKPOINT" \
-  --urdf "$URDF" \
-  --task-index 2 \
-  --episodes 1
+python scripts/smoke_test.py \
+  --checkpoint /absolute/path/to/ace-ego-0-absolute \
+  --urdf /absolute/path/to/GR1T2_with_hands.urdf \
+  --task-index 2
 ```
 
 Expected checkpoint hashes:
@@ -248,17 +188,13 @@ Expected checkpoint hashes:
 | Absolute | `c438252368486737efa7fc6ac278d6be82d0ba07477d9dd8b73f479578f1e861` |
 | Delta | `d32c73cb7dafa922a645d07803fb73c1dc9fed56048b7b7754989fd576d85d9b` |
 
-The repository includes only Qwen's lightweight configuration, tokenizer, chat template, and image-processor files under `assets/qwen3-vl-4b-instruct/`. The Qwen model weights are already included in each full checkpoint; no separate Qwen weight download is required.
-
 ## 🤖 GR1 URDF and Offline Cache
 
-The repository includes `assets/GR1T2_with_hands.urdf` and the referenced mesh files for the released GR1 embodiment. You may use this URDF directly or provide a compatible local URDF with `--urdf`; keep all mesh paths referenced by the URDF valid.
+The repository includes `assets/GR1T2_with_hands.urdf` and the referenced mesh files for the released GR1 embodiment. You may use this URDF directly or provide a compatible local URDF with `--urdf`.
 
 `assets/urdf_cache/GR1.pkl` is a path-free offline graph-tensor cache for the released GR1 embodiment. It avoids rebuilding the model-side URDF graph. Mink IK still reads the source URDF at runtime, so the `--urdf` path must exist even when the cache is present.
 
 ## 🎯 RoboCasa 24 Evaluation
-
-The public evaluator starts a local websocket policy server automatically and runs entirely on the current machine without a cluster-specific launcher.
 
 Run one episode of task index 2 with the Absolute policy:
 
@@ -301,9 +237,9 @@ python scripts/evaluate.py \
   --episodes 50
 ```
 
-The evaluator reads Absolute/Delta action semantics from the corresponding public config. For Delta Action, it automatically uses the recorded `state_anchor`, `first_state`, `subtract`, and `q99` reconstruction settings.
+The evaluator reads Absolute/Delta action semantics from the corresponding config. For Delta Action, it automatically uses the recorded reconstruction settings.
 
-Each run writes per-task logs, videos, and `summary.json` under `outputs/`. These are local evaluation artifacts and are ignored by Git. Task indices are exposed by `evaluation.robocasa24.tasks` and follow the published 24-task ordering.
+Each run writes per-task logs, videos, and `summary.json` under `outputs/`. These are local evaluation artifacts and are ignored by Git.
 
 ### Explicit local server mode
 
