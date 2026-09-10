@@ -66,9 +66,14 @@ This repository contains the ACE-Ego-0 codebase. Training code and additional be
 
 The currently available code provides inference and evaluation for the **GR1 RoboCasa 24** benchmark.
 
-### Install
+### Installation
+
+The setup below assumes a Linux host with `conda`, `git`, `tar`, and `curl` or `wget`. The release was tested with Python 3.10, an NVIDIA GPU, and a CUDA 12.4-compatible driver. From a fresh clone:
 
 ```bash
+git clone https://github.com/ACERobotics-VLA/ACE-Ego-0.git
+cd ACE-Ego-0
+
 conda create -n ace-ego-robocasa24 python=3.10 -y
 conda activate ace-ego-robocasa24
 
@@ -79,56 +84,37 @@ python -m pip install \
   torch==2.6.0 torchvision==0.21.0 \
   --index-url https://download.pytorch.org/whl/cu124
 
-python -m pip install "huggingface_hub>=0.34,<1"
-python -m pip install -r requirements.txt
-python -m pip install -e .
-python -m pip install einops
-```
+# Runtime dependencies, the repository, and the Hugging Face CLI.
+python -m pip install "huggingface_hub>=0.34,<1" -r requirements.txt -e . einops
 
-Install Flash Attention 2.8.3 using the prebuilt wheel for Python 3.10, CUDA 12, and PyTorch 2.6:
-
-```bash
+# Prebuilt Flash Attention wheel for Python 3.10, CUDA 12.4, and PyTorch 2.6.
 python -m pip install \
   https://github.com/mjun0812/flash-attention-prebuild-wheels/releases/download/v0.7.16/flash_attn-2.8.3%2Bcu124torch2.6-cp310-cp310-linux_x86_64.whl
 ```
 
-If this wheel is not compatible with the local driver or PyTorch installation, install the matching Flash Attention build for the local CUDA/PyTorch combination.
-
-Verify the Python environment:
-
-```bash
-python -m pip check
-python -c "import torch, flash_attn; print(torch.__version__, flash_attn.__version__)"
-```
-
-### Install RoboCasa
-
-RoboSuite and the GR1 RoboCasa task package are installed separately because they are external dependencies. From the repository root, run:
+Install the pinned RoboSuite and GR1 RoboCasa task package, then download the tabletop assets:
 
 ```bash
 bash scripts/install_robocasa.sh
 ```
 
-To install only the Python packages and defer the large asset download:
+The script stores external sources under `third_party/`, installs them in editable mode, downloads the required RoboCasa assets, and runs the environment checker. The asset download is large but safe to rerun. To install the Python packages first and download assets later:
 
 ```bash
 SKIP_ROBOCASA_ASSETS=1 bash scripts/install_robocasa.sh
 ```
 
-On a headless machine, set:
+Verify the complete setup:
 
 ```bash
+python -m pip check
+python -c "import torch, flash_attn; print(torch.__version__, flash_attn.__version__)"
 export MUJOCO_GL=egl
 export MUJOCO_EGL_DEVICE_ID=0
-```
-
-Then verify the simulator setup:
-
-```bash
 python scripts/check_environment.py
 ```
 
-Do not start inference if the checker reports missing assets or unregistered environments.
+The two `MUJOCO_GL` variables are for headless rendering; adjust `MUJOCO_EGL_DEVICE_ID` if the desired GPU is not device 0. If the Flash Attention wheel does not match the local driver or PyTorch installation, install the corresponding prebuilt wheel before running evaluation.
 
 ### Source layout
 
