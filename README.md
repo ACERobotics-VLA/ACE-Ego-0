@@ -1,3 +1,9 @@
+<p align="center">
+  <img src="assets/ACE_Logo.png" alt="ACE Robotics" height="72">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/cuhk_logo.png" alt="The Chinese University of Hong Kong" height="72">
+</p>
+
 <h1 align="center">ACE-Ego-0: Unifying Egocentric Human and Robotic Data for VLA Pretraining</h1>
 
 <p align="center">
@@ -16,9 +22,11 @@
 
 ## 📖 Overview
 
-**ACE-Ego-0** is a unified vision-language-action (VLA) pretraining framework that combines egocentric human videos, multi-embodiment robot demonstrations, and simulation rollouts for robot policy learning.
+<p align="center">
+  <img src="assets/figures/teaser.png" alt="ACE-Ego-0 teaser" width="95%">
+</p>
 
-Large-scale egocentric human videos provide broad real-world interaction coverage, but they do not directly match robot action spaces, embodiments, temporal dynamics, or supervision quality. ACE-Ego-0 addresses these gaps with camera-space actions, morphology conditioning, time-aligned action chunking, and reliability-aware auxiliary supervision.
+**ACE-Ego-0** is a unified vision-language-action (VLA) pretraining framework that combines egocentric human videos, multi-embodiment robot demonstrations, and simulation rollouts for robot policy learning.
 
 ## ✨ Highlights
 
@@ -28,6 +36,10 @@ Large-scale egocentric human videos provide broad real-world interaction coverag
 - **Strong transfer**: Achieves 72.8% average success on RoboCasa GR1 TableTop, 91.12% / 90.62% on RoboTwin 2.0 Easy / Hard, and 78.3% average success on real bimanual ARX tasks.
 
 ## 🧠 Method
+
+<p align="center">
+  <img src="assets/figures/method.png" alt="ACE-Ego-0 method overview" width="95%">
+</p>
 
 ACE-Ego-0 resolves four core mismatches between egocentric human video and robot trajectories:
 
