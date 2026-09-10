@@ -128,51 +128,7 @@ checkpoints/robocasa24/    Configs and normalization statistics for the policies
 
 ## 🤗 Models
 
-The currently released GR1 RoboCasa 24 checkpoints are hosted at:
-
-```text
-https://huggingface.co/acerobotics2025/ACE-Ego-0
-```
-
-Download both bundles:
-
-```bash
-HF_REPO_ID="acerobotics2025/ACE-Ego-0"
-
-hf download "$HF_REPO_ID" \
-  --repo-type model \
-  --include "checkpoints/robocasa24/ace-ego-0-absolute/**" \
-  --local-dir .
-
-hf download "$HF_REPO_ID" \
-  --repo-type model \
-  --include "checkpoints/robocasa24/ace-ego-0-delta/**" \
-  --local-dir .
-```
-
-Each checkpoint bundle contains:
-
-- `config.yaml`
-- `checkpoints/ace_ego_0_robocasa24_*.pt`
-- `checkpoints/runtime_merged_dataset_statistics.json`
-
-The `.pt` files contain the complete fine-tuned Qwen3-VL-4B-Instruct and ACE-Ego-0 state dictionaries. The matching config and normalization statistics must not be mixed between Absolute and Delta policies.
-
-If you store a bundle elsewhere, pass the checkpoint path explicitly:
-
-```bash
-python scripts/smoke_test.py \
-  --checkpoint /absolute/path/to/ace-ego-0-absolute \
-  --urdf /absolute/path/to/GR1T2_with_hands.urdf \
-  --task-index 2
-```
-
-Expected checkpoint hashes:
-
-| Checkpoint | SHA256 |
-| --- | --- |
-| Absolute | `c438252368486737efa7fc6ac278d6be82d0ba07477d9dd8b73f479578f1e861` |
-| Delta | `d32c73cb7dafa922a645d07803fb73c1dc9fed56048b7b7754989fd576d85d9b` |
+The released Absolute and Delta GR1 RoboCasa 24 checkpoint bundles are available for download from [Hugging Face](https://huggingface.co/acerobotics2025/ACE-Ego-0).
 
 ## 🤖 GR1 URDF and Offline Cache
 
