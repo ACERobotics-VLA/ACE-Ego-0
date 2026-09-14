@@ -1,0 +1,15 @@
+base_config: ../common_sft.yaml
+
+datasets:
+  vla_data:
+    data_root_dir: ${oc.env:ACE_EGO_0_DATA_ROOT,../../data/arx}
+    manifest_robot_type: arx_dual_arm_common23
+    delta_action: false
+    image_size: [256, 256]
+    num_workers: 4
+    prefetch_factor: 2
+
+trainer:
+  max_train_steps: 100000
+  logging_frequency: 20
+  pretrained_checkpoint: ../../checkpoints/pretrain/ace-ego-0-pretrain-absolute/checkpoints/ace_ego_0_pretrain_absolute.pt

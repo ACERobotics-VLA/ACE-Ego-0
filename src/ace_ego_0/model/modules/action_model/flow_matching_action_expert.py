@@ -6,6 +6,8 @@ import torch
 import torch.distributed as dist
 import torch.nn.functional as F
 from torch import nn
+from torch.distributions import Beta
+from torch.utils.checkpoint import checkpoint as torch_checkpoint
 
 from ace_ego_0.model.modules.action_model.flow_matching_head.action_encoder import (
     SinusoidalPositionalEncoding,
@@ -27,6 +29,14 @@ from ace_ego_0.model.modules.urdf.urdf_encoder import UrdfGraphEncoder
 logger = logging.getLogger(__name__)
 _LOGGED_UNKNOWN_URDF_ROBOTS: set[str] = set()
 _LOGGED_LEARNABLE_URDF_ROBOTS: set[str] = set()
+
+
+def _run_gradient_checkpoint(function, *args):
+    """Run a block with the non-reentrant API when supported."""
+    try:
+        return torch_checkpoint(function, *args, use_reentrant=False)
+    except TypeError:
+        return torch_checkpoint(function, *args)
 
 
 def _is_main_process() -> bool:
@@ -424,12 +434,44 @@ class FlowMatchingActionExpert(nn.Module):
         self.urdf_spec_overrides = resolve_urdf_spec_overrides(getattr(action_config, "urdf_robot_specs", None))
         self.urdf_auto_build_cache = bool(getattr(action_config, "urdf_auto_build_cache", True))
         self.urdf_cache_dir = Path(str(getattr(action_config, "urdf_cache_dir", "urdf_cache"))).expanduser()
+        if not self.urdf_cache_dir.is_absolute() and not self.urdf_cache_dir.is_dir():
+            bundled_cache_dir = Path(__file__).resolve().parents[5] / self.urdf_cache_dir
+            if bundled_cache_dir.is_dir():
+                self.urdf_cache_dir = bundled_cache_dir
         self.urdf_encoder_hidden_dim = int(getattr(action_config, "urdf_encoder_hidden_dim", 256))
         self.urdf_encoder_layers = int(getattr(action_config, "urdf_encoder_layers", 2))
         configured_urdf_token_dim = int(getattr(action_config, "urdf_token_dim", self.input_embedding_dim))
         self.urdf_token_dim = configured_urdf_token_dim if configured_urdf_token_dim > 0 else self.input_embedding_dim
         self._urdf_graph_cache_by_robot: dict[str, dict[str, Any]] = {}
         self.last_urdf_diagnostics: dict[str, torch.Tensor] = {}
+        self.loss_parameterization = str(getattr(action_config, "loss_parameterization", "velocity")).lower()
+        if self.loss_parameterization != "velocity":
+            raise ValueError(
+                "The public ACE-Ego-0 SFT implementation supports only velocity flow-matching loss; "
+                f"got {self.loss_parameterization!r}."
+            )
+        if bool(getattr(action_config, "use_geodesic_rot6d_loss", False)):
+            raise ValueError("The public ACE-Ego-0 SFT recipes do not support geodesic rot6d loss.")
+        if bool(getattr(action_config, "enable_action_mask_input", False)):
+            raise ValueError("Action-mask conditioning is not part of the public ACE-Ego-0 SFT contract.")
+        self.noise_s = float(getattr(action_config, "noise_s", 0.999))
+        noise_beta_alpha = float(getattr(action_config, "noise_beta_alpha", 1.5))
+        noise_beta_beta = float(getattr(action_config, "noise_beta_beta", 1.0))
+        if not (0.0 < self.noise_s <= 1.0):
+            raise ValueError(f"`noise_s` must be in (0, 1], got {self.noise_s}.")
+        if noise_beta_alpha <= 0.0 or noise_beta_beta <= 0.0:
+            raise ValueError("Flow-matching Beta distribution parameters must be positive.")
+        self.beta_dist = Beta(noise_beta_alpha, noise_beta_beta)
+        self.gradient_checkpointing = False
+        self.loss_groups = {
+            "left_eef_pos": (0, 3),
+            "left_eef_rot6d": (3, 9),
+            "right_eef_pos": (9, 12),
+            "right_eef_rot6d": (12, 18),
+            "left_gripper": (18, 19),
+            "right_gripper": (19, 20),
+            "waist": (20, 23),
+        }
 
         if self.enable_state_input and not action_config.state_dim:
             raise ValueError("`framework.action_model.state_dim` must be set when `enable_state_input` is true.")
@@ -561,6 +603,12 @@ class FlowMatchingActionExpert(nn.Module):
                 self.state_injection_mode,
                 self.use_legacy_token_state_encoder,
             )
+
+    def set_gradient_checkpointing(self, enabled: bool) -> None:
+        """Enable activation checkpointing for action-expert transformer blocks."""
+        self.gradient_checkpointing = bool(enabled)
+        if hasattr(self.model, "gradient_checkpointing"):
+            self.model.gradient_checkpointing = self.gradient_checkpointing
 
     def _encode_state_features(self, state: torch.Tensor | None) -> torch.Tensor | None:
         """Encode optional raw state inputs into one sequence token."""
@@ -869,7 +917,7 @@ class FlowMatchingActionExpert(nn.Module):
         attention_mask: torch.Tensor | None = None,
         encoder_attention_mask: torch.Tensor | None = None,
     ) -> torch.Tensor:
-        """Run one DiT block for inference."""
+        """Run one DiT block for training or inference."""
         if encoder_hidden_states is None:
 
             def _self_attention_layer_forward(
@@ -883,6 +931,8 @@ class FlowMatchingActionExpert(nn.Module):
                     temb=current_temb,
                 )
 
+            if self.gradient_checkpointing and self.training and torch.is_grad_enabled():
+                return _run_gradient_checkpoint(_self_attention_layer_forward, hidden_states, temb)
             return _self_attention_layer_forward(hidden_states, temb)
 
         def _layer_forward(
@@ -898,6 +948,8 @@ class FlowMatchingActionExpert(nn.Module):
                 temb=current_temb,
             )
 
+        if self.gradient_checkpointing and self.training and torch.is_grad_enabled():
+            return _run_gradient_checkpoint(_layer_forward, hidden_states, encoder_hidden_states, temb)
         return _layer_forward(hidden_states, encoder_hidden_states, temb)
 
     def _resolve_layer_encoder_hidden_states(
@@ -910,6 +962,169 @@ class FlowMatchingActionExpert(nn.Module):
         if bool(getattr(self.model.config, "interleave_self_attention", False)) and layer_idx % 2 == 1:
             return None
         return vl_embs_list[layer_idx]
+
+    def sample_time(self, batch_size: int, device: torch.device, dtype: torch.dtype) -> torch.Tensor:
+        """Sample the production flow-matching interpolation time."""
+        sample = self.beta_dist.sample([batch_size]).to(device=device, dtype=dtype)
+        return (self.noise_s - sample) / self.noise_s
+
+    @staticmethod
+    def _expand_action_mask(
+        action_mask: torch.Tensor | None,
+        actions: torch.Tensor,
+    ) -> torch.Tensor | None:
+        if action_mask is None:
+            return None
+        if action_mask.ndim == 2:
+            expanded_mask = action_mask.unsqueeze(1)
+        elif action_mask.ndim == 3:
+            expanded_mask = action_mask
+        else:
+            raise ValueError(f"Action mask must have two or three dimensions, got {tuple(action_mask.shape)}.")
+        if expanded_mask.shape[0] != actions.shape[0] or expanded_mask.shape[-1] != actions.shape[-1]:
+            raise ValueError(
+                f"Action mask does not match trajectory: mask={tuple(expanded_mask.shape)}, "
+                f"actions={tuple(actions.shape)}."
+            )
+        if expanded_mask.shape[1] not in (1, actions.shape[1]):
+            raise ValueError(
+                "Action mask time dimension must be one or match the action horizon: "
+                f"mask={tuple(expanded_mask.shape)}, actions={tuple(actions.shape)}."
+            )
+        return expanded_mask.to(device=actions.device, dtype=actions.dtype)
+
+    @staticmethod
+    def _compute_mse_loss(
+        prediction: torch.Tensor,
+        target: torch.Tensor,
+        mask: torch.Tensor | None,
+    ) -> torch.Tensor:
+        squared_error = (prediction - target) ** 2
+        if mask is None:
+            return squared_error.mean()
+        expanded_mask = mask.expand_as(squared_error).to(dtype=prediction.dtype)
+        valid_count = expanded_mask.sum()
+        if valid_count.item() <= 0:
+            return prediction.new_zeros(())
+        return (squared_error * expanded_mask).sum() / valid_count
+
+    def compute_masked_loss(
+        self,
+        prediction: torch.Tensor,
+        target: torch.Tensor,
+        action_mask: torch.Tensor | None = None,
+    ) -> dict[str, torch.Tensor]:
+        """Compute the training objective and Common23 diagnostic losses."""
+        expanded_mask = self._expand_action_mask(action_mask, prediction)
+        losses = {
+            "total_loss": self._compute_mse_loss(
+                prediction,
+                target,
+                expanded_mask,
+            )
+        }
+        for group_name, (start_idx, end_idx) in self.loss_groups.items():
+            group_mask = None if expanded_mask is None else expanded_mask[..., start_idx:end_idx]
+            losses[f"{group_name}_loss"] = self._compute_mse_loss(
+                prediction[..., start_idx:end_idx],
+                target[..., start_idx:end_idx],
+                group_mask,
+            )
+        return losses
+
+    def forward(
+        self,
+        vl_embs_list: list[torch.Tensor],
+        actions: torch.Tensor,
+        state: torch.Tensor | None = None,
+        action_mask: torch.Tensor | None = None,
+        robot_names: list[str] | None = None,
+        *,
+        return_training_tensors: bool = False,
+    ) -> dict[str, torch.Tensor]:
+        """Compute the production velocity flow-matching SFT loss."""
+        if actions.ndim != 3 or actions.shape[-1] != self.action_dim:
+            raise ValueError(f"Actions must have shape [B, T, {self.action_dim}], got {tuple(actions.shape)}.")
+        if not vl_embs_list:
+            raise ValueError("`vl_embs_list` must contain at least one hidden-state tensor.")
+        if len(vl_embs_list) < len(self.model.transformer_blocks):
+            raise ValueError(
+                "Not enough VLM hidden states for the action expert: "
+                f"got {len(vl_embs_list)}, need {len(self.model.transformer_blocks)}."
+            )
+        batch_size = actions.shape[0]
+        if any(hidden.shape[0] != batch_size for hidden in vl_embs_list):
+            raise ValueError("VLM hidden-state batch size must match the action batch.")
+
+        trajectory_mask = self._expand_action_mask(action_mask, actions)
+        noise = torch.randn_like(actions)
+        clean_actions = actions
+        if trajectory_mask is not None:
+            noise = noise * trajectory_mask
+            clean_actions = clean_actions * trajectory_mask
+
+        t = self.sample_time(batch_size, device=actions.device, dtype=actions.dtype)[:, None, None]
+        noisy_trajectory = (1 - t) * noise + t * clean_actions
+        target_velocity = clean_actions - noise
+        t_discretized = (t[:, 0, 0] * self.num_timestep_buckets).long()
+
+        action_features = self.action_encoder(noisy_trajectory, t_discretized)
+        state_features = self._encode_state_features(state)
+        urdf_tokens = self._encode_urdf_condition_tokens(
+            robot_names,
+            device=actions.device,
+            dtype=action_features.dtype,
+        )
+        if self.config.add_pos_embed:
+            pos_ids = torch.arange(action_features.shape[1], dtype=torch.long, device=actions.device)
+            action_features = action_features + self.position_embedding(pos_ids).unsqueeze(0)
+
+        future_tokens = self.future_tokens.weight.unsqueeze(0).expand(batch_size, -1, -1)
+        timestep_embedding = self.model.timestep_encoder(t_discretized)
+        action_side_embeddings = torch.cat((future_tokens, action_features), dim=1)
+        action_side_embeddings = self._apply_state_timestep_conditioning(
+            action_side_embeddings,
+            timestep_embedding=timestep_embedding,
+            state=state,
+        )
+        sequence_segments: list[torch.Tensor] = []
+        if state_features is not None:
+            sequence_segments.append(state_features)
+        if urdf_tokens is not None:
+            sequence_segments.append(urdf_tokens)
+        sequence_segments.append(action_side_embeddings)
+        model_output = torch.cat(sequence_segments, dim=1)
+
+        for layer_idx, layer in enumerate(self.model.transformer_blocks):
+            encoder_hidden_states = self._resolve_layer_encoder_hidden_states(
+                layer_idx=layer_idx,
+                vl_embs_list=vl_embs_list,
+            )
+            model_output = self._run_transformer_block(
+                layer,
+                model_output,
+                encoder_hidden_states,
+                timestep_embedding,
+            )
+        model_output = self.model.norm_out(model_output)
+        model_prediction = self.action_decoder(model_output)[:, -actions.shape[1] :]
+
+        losses = self.compute_masked_loss(
+            prediction=model_prediction,
+            target=target_velocity,
+            action_mask=action_mask,
+        )
+        if return_training_tensors:
+            losses.update(
+                {
+                    "pred_velocity": model_prediction,
+                    "target_velocity": target_velocity,
+                    "training_noise": noise,
+                    "training_noisy_trajectory": noisy_trajectory,
+                    "training_timestep": t,
+                }
+            )
+        return losses
 
     @staticmethod
     def _compute_inference_prediction(model_prediction: torch.Tensor) -> torch.Tensor:

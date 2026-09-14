@@ -1,0 +1,8 @@
+# The complete seven-session v0.1 stack_ceramic_bowls set.
+v0.1/stack_ceramic_bowls/session_20260506_153433_730b
+v0.1/stack_ceramic_bowls/session_20260506_163631_be21
+v0.1/stack_ceramic_bowls/session_20260506_180315_e6e1
+v0.1/stack_ceramic_bowls/session_20260506_183433_3b05
+v0.1/stack_ceramic_bowls/session_20260507_100802_e791
+v0.1/stack_ceramic_bowls/session_20260507_113043_0ca8
+v0.1/stack_ceramic_bowls/session_20260507_115119_0571

@@ -1,0 +1,6 @@
+base_config: absolute_sft_base.yaml
+run_id: ace_ego_0_arx_scan_pencil_case_new_absolute_sft
+datasets:
+  vla_data:
+    dataset_manifest_path: manifests/scan_pencil_case_new.txt
+    norm_manifest_path: ${datasets.vla_data.data_root_dir}/norm/scan_pencil_case_new/absolute/norm_manifest.json

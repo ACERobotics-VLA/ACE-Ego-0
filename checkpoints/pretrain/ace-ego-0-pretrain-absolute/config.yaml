@@ -1,20 +1,26 @@
-run_id: ace_ego_0_robocasa24_absolute
+run_id: ace_ego_0_pretrain_absolute
 framework:
   name: ACE-Ego-0
   qwenvl:
-    base_vlm: qwen3-vl-4b-instruct
+    base_vlm: assets/qwen3-vl-4b-instruct
+    compute_dtype: bfloat16
   action_model:
     action_dim: 23
     state_dim: 23
     action_horizon: 30
     future_action_window_size: 29
     past_action_window_size: 0
+    compute_dtype: float32
     max_seq_len: 1024
     add_pos_embed: true
+    noise_beta_alpha: 1.5
+    noise_beta_beta: 1.0
+    noise_s: 0.999
     num_timestep_buckets: 1000
     num_inference_timesteps: 4
     num_target_vision_tokens: 32
     enable_state_input: true
+    state_design_preset: rdt2
     state_injection_mode: timestep_conditioning
     state_timestep_mode: concat
     enable_urdf_input: true
@@ -25,6 +31,18 @@ framework:
     urdf_token_dim: 1024
     urdf_use_body_token: true
     urdf_use_chain_token: true
+    urdf_unknown_robot_policy: learnable_tokens
+    urdf_learnable_robot_names:
+      - human_video
+      - human_video__0402
+      - human_video__0403
+      - human_video__0411_pnppotatotomicrowaveclose
+      - human_video__0413_pnpcuptodrawerclose
+      - human_video__ego4d_cooking
+      - human_video__ego4d_other
+      - human_video__egodex
+      - human_video__egoexo4d
+      - human_video__epic
     diffusion_model_cfg:
       attention_head_dim: 64
       dropout: 0.2
@@ -37,15 +55,11 @@ framework:
       output_dim: 1024
       positional_embeddings: null
       cross_attention_dim: 2560
+  reduce_in_full_precision: true
 datasets:
   vla_data:
     robot_name: GR1
     include_state: true
-    rot_norm_mode: q99
-    trans_norm_mode: q99
-    gripper_norm_mode: q99
     delta_action: false
-    CoT_prompt: '{instruction}'
-    language_source: episode_remarks
+    CoT_prompt: "{instruction}"
     image_size: [224, 224]
-    preserve_raw_image_size: false

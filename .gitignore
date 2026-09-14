@@ -1,6 +1,12 @@
 整理视频/
 整理视频.zip
-/docs/
+/docs/*
+!/docs/README.md
+!/docs/open_source_sft_training.md
+!/docs/sft_training_implementation.md
+!/docs/sft_training_status.md
+/data/
+/scripts/local/
 
 __pycache__/
 *.py[cod]
@@ -49,3 +55,4 @@ third_party/
 *.safetensors
 *.pkl
 !assets/urdf_cache/GR1.pkl
+!assets/urdf_cache/ARX5Dual.pkl

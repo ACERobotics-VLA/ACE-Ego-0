@@ -1,0 +1,25 @@
+base_config: ../common_sft.yaml
+run_id: ace_ego_0_robocasa24_delta_sft
+
+datasets:
+  vla_data:
+    data_root_dir: ${oc.env:ACE_EGO_0_DATA_ROOT,../../data/robocasa24}
+    dataset_manifest_path: datasets.yaml
+    manifest_robot_type: fourier_gr1_eef_gripper_6d
+    norm_manifest_path: ${datasets.vla_data.data_root_dir}/norm/delta/norm_manifest.json
+    delta_action: true
+    delta_xyz: true
+    delta_rot: true
+    delta_action_mode: state_anchor
+    delta_base_state: first_state
+    delta_quat_mode: subtract
+    image_size: [224, 224]
+    num_workers: 8
+    prefetch_factor: 3
+
+trainer:
+  max_train_steps: 200000
+  logging_frequency: 1
+  learning_rate:
+    qwen_vl_interface: 2.0e-5
+  pretrained_checkpoint: ../../checkpoints/pretrain/ace-ego-0-pretrain-delta/checkpoints/ace_ego_0_pretrain_delta.pt

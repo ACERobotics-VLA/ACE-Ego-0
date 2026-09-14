@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ace-ego-0-robocasa24-eval"
-version = "0.1.0"
-description = "Inference-only evaluation for ACE-Ego-0 on GR1 RoboCasa 24."
+name = "ace-ego-0"
+version = "0.2.0"
+description = "ACE-Ego-0 inference, RoboCasa evaluation, and public Common23 SFT."
 readme = "README.md"
 requires-python = ">=3.10,<3.11"
 license = {file = "LICENSE"}
@@ -35,14 +35,16 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pre-commit", "pytest", "ruff"]
+dev = ["pre-commit", "ruff"]
+train = [
+  "deepspeed==0.16.9",
+  "pyarrow==14.0.1",
+]
+wandb = ["wandb>=0.19,<1"]
 
 [tool.setuptools.packages.find]
 where = ["src", "."]
 include = ["ace_ego_0*", "evaluation*"]
-
-[tool.pytest.ini_options]
-pythonpath = [".", "src"]
 
 [tool.ruff]
 line-length = 121

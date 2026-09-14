@@ -1,0 +1,6 @@
+base_config: delta_sft_base.yaml
+run_id: ace_ego_0_arx_pour_coffee_beans_delta_sft
+datasets:
+  vla_data:
+    dataset_manifest_path: manifests/pour_coffee_beans.txt
+    norm_manifest_path: ${datasets.vla_data.data_root_dir}/norm/pour_coffee_beans/delta/norm_manifest.json

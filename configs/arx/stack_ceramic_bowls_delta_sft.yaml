@@ -1,0 +1,6 @@
+base_config: delta_sft_base.yaml
+run_id: ace_ego_0_arx_stack_ceramic_bowls_delta_sft
+datasets:
+  vla_data:
+    dataset_manifest_path: manifests/stack_ceramic_bowls.txt
+    norm_manifest_path: ${datasets.vla_data.data_root_dir}/norm/stack_ceramic_bowls/delta/norm_manifest.json

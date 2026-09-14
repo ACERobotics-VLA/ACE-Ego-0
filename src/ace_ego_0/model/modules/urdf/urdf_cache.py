@@ -131,6 +131,14 @@ def load_or_build_urdf_graph_cache(
         cached_urdf_path = payload.get("urdf_path")
         if cached_urdf_path is None or Path(cached_urdf_path).expanduser().resolve() == spec.urdf_path.resolve():
             return payload
+        if not auto_build:
+            logger.info(
+                "Using cache-only URDF graph %s for %s; recorded build path %s is provenance only.",
+                cache_path,
+                spec.robot_name,
+                cached_urdf_path,
+            )
+            return payload
         logger.info(
             "Ignoring URDF graph cache %s because it was built from %s instead of %s.",
             cache_path,

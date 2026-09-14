@@ -125,21 +125,72 @@ def _prepare_state_tensor(
     return state_tensor
 
 
+def _prepare_action_targets(
+    actions: list[Any],
+    *,
+    action_masks: list[Any] | None,
+    action_horizon: int,
+    action_dim: int,
+    device: torch.device,
+    dtype: torch.dtype,
+) -> tuple[torch.Tensor, torch.Tensor | None]:
+    """Stack one fixed-length Common23 action batch for SFT."""
+    action_arrays = [np.asarray(action) for action in actions]
+    if any(action.ndim != 2 for action in action_arrays):
+        raise ValueError("Every training action must have shape [T, action_dim].")
+    if any(action.shape[1] != action_dim for action in action_arrays):
+        raise ValueError(f"Every training action must use action_dim={action_dim}.")
+    action_lengths = [int(action.shape[0]) for action in action_arrays]
+    if len(set(action_lengths)) != 1 or action_lengths[0] < action_horizon:
+        raise ValueError(
+            "Public SFT requires equal action chunks with at least the configured horizon; "
+            f"got lengths={action_lengths}, horizon={action_horizon}."
+        )
+    actions_tensor = torch.as_tensor(
+        np.asarray(action_arrays),
+        device=device,
+        dtype=dtype,
+    )[:, -action_horizon:, :]
+
+    if action_masks is None or not any(mask is not None for mask in action_masks):
+        return actions_tensor, None
+    if any(mask is None for mask in action_masks):
+        raise ValueError("Action masks must be provided for every sample or omitted for every sample.")
+    mask_arrays = [np.asarray(mask, dtype=bool) for mask in action_masks]
+    if any(mask.shape not in {(action_dim,), (action_horizon, action_dim)} for mask in mask_arrays):
+        raise ValueError(f"Action masks must have shape [{action_dim}] or [{action_horizon}, {action_dim}].")
+    return actions_tensor, torch.as_tensor(np.asarray(mask_arrays), device=device, dtype=dtype)
+
+
+def _extract_robot_names(examples: list[dict[str, Any]]) -> list[str]:
+    robot_names: list[str] = []
+    for example in examples:
+        robot_name = example.get("robot_name") or example.get("robot_type")
+        if robot_name is None:
+            raise ValueError("Every SFT sample must provide `robot_name` or `robot_type`.")
+        robot_names.append(str(robot_name))
+    return robot_names
+
+
 def _extract_visual_inputs(
     examples: list[dict[str, Any]],
     *,
     convert_to_pil: bool,
 ) -> list[Any]:
     """Extract a batch of static camera images."""
+    if not examples:
+        raise ValueError("At least one example is required.")
     if any("video" in example for example in examples):
-        raise ValueError("RoboCasa 24 inference accepts static camera images only.")
+        raise ValueError("ACE-Ego-0 public SFT and inference accept pre-sampled static images only.")
+    if any("image" not in example for example in examples):
+        raise ValueError("Every example must provide `image`.")
     images = [example["image"] for example in examples]
     return to_pil_preserve(images) if convert_to_pil else images
 
 
 @FRAMEWORK_REGISTRY.register("ACE-Ego-0")
 class ACEEgoPolicy(baseframework):
-    """Inference-only multimodal vision-language-action policy."""
+    """Checkpoint-compatible multimodal vision-language-action policy."""
 
     def __init__(
         self,
@@ -189,6 +240,11 @@ class ACEEgoPolicy(baseframework):
         self.chunk_len = self.past_action_window_size + 1 + self.future_action_window_size
         self.action_horizon = _resolve_action_horizon(config.framework.action_model)
         self.config.framework.action_model.action_horizon = self.action_horizon
+        trainer_config = getattr(config, "trainer", None)
+        configured_repeats = trainer_config.get("repeated_diffusion_steps", 4) if trainer_config is not None else 4
+        self.repeated_diffusion_steps = int(configured_repeats)
+        if self.repeated_diffusion_steps < 1:
+            raise ValueError("`trainer.repeated_diffusion_steps` must be a positive integer.")
 
         logger.info(
             "ACE-Ego-0 dtype policy: VLM=%s, action_model=%s.",
@@ -226,11 +282,87 @@ class ACEEgoPolicy(baseframework):
             base_hidden = vl_embs_list[-1]
         return vl_embs_list, base_hidden
 
-    def forward(self, *args: Any, **kwargs: Any) -> dict[str, Any]:
-        """Reject training calls because this public release exposes inference only."""
-        raise RuntimeError(
-            "The public ACE-Ego-0 release is inference-only; call predict_action() for RoboCasa evaluation."
+    def set_gradient_checkpointing(self, enabled: bool) -> None:
+        """Apply one gradient-checkpointing policy to both trainable model halves."""
+        self.qwen_vl_interface.set_gradient_checkpointing(enabled)
+        self.action_model.set_gradient_checkpointing(enabled)
+
+    def forward(
+        self,
+        examples: Optional[List[dict[str, Any]]] = None,
+        **kwargs: Any,
+    ) -> dict[str, Any]:
+        """Compute one supervised flow-matching action loss."""
+        del kwargs
+        if not examples:
+            raise ValueError("`examples` must contain at least one SFT sample.")
+
+        batch_images = _extract_visual_inputs(examples, convert_to_pil=True)
+        instructions = [str(example["lang"]) for example in examples]
+        actions = [example["action"] for example in examples]
+        action_masks = [example.get("mask") for example in examples]
+        robot_names = _extract_robot_names(examples)
+
+        has_state = ["state" in example for example in examples]
+        if any(has_state) and not all(has_state):
+            raise ValueError("State must be provided for every sample or omitted for every sample.")
+        state = [example["state"] for example in examples] if all(has_state) else None
+        state_masks = [example.get("state_mask") for example in examples] if state is not None else None
+        if state_masks is not None and not any(mask is not None for mask in state_masks):
+            state_masks = None
+        elif state_masks is not None and any(mask is None for mask in state_masks):
+            raise ValueError("State masks must be provided for every sample or omitted for every sample.")
+
+        vl_embs_list, base_hidden = self._encode_qwen_hidden_states(
+            batch_images=batch_images,
+            instructions=instructions,
         )
+
+        with torch.autocast("cuda", enabled=False):
+            actions_target, action_mask_tensor = _prepare_action_targets(
+                actions,
+                action_masks=action_masks,
+                action_horizon=self.action_horizon,
+                action_dim=int(self.config.framework.action_model.action_dim),
+                device=base_hidden.device,
+                dtype=self.action_compute_dtype,
+            )
+            state_tensor = _prepare_state_tensor(
+                state,
+                state_masks=state_masks,
+                enable_state_input=self.enable_state_input,
+                device=base_hidden.device,
+                dtype=self.action_compute_dtype,
+            )
+
+            repeat_count = self.repeated_diffusion_steps
+            actions_target = actions_target.repeat(repeat_count, 1, 1)
+            action_vl_embs_list = [
+                hidden.to(dtype=self.action_compute_dtype).repeat(repeat_count, 1, 1) for hidden in vl_embs_list
+            ]
+            if state_tensor is not None:
+                state_tensor = state_tensor.repeat(repeat_count, 1, 1)
+            repeated_robot_names = robot_names * repeat_count
+            if action_mask_tensor is not None:
+                repeat_shape = (repeat_count,) + (1,) * (action_mask_tensor.ndim - 1)
+                action_mask_tensor = action_mask_tensor.repeat(*repeat_shape)
+
+            loss_dict = self.action_model(
+                action_vl_embs_list,
+                actions_target,
+                state_tensor,
+                action_mask=action_mask_tensor,
+                robot_names=repeated_robot_names,
+            )
+            action_loss = loss_dict["total_loss"]
+
+        return {
+            "action_loss": action_loss,
+            "main_action_loss": action_loss,
+            "total_loss": action_loss,
+            "loss_dict": loss_dict,
+            "aux_loss_dict": {},
+        }
 
     def predict_action(
         self,

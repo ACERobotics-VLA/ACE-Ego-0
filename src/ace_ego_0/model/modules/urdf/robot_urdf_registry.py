@@ -96,6 +96,15 @@ def resolve_urdf_spec_overrides(raw_overrides: object) -> dict[str, RobotUrdfSpe
 
 
 ROBOT_URDF_SPECS: dict[str, RobotUrdfSpec] = {
+    "ARX5Dual": RobotUrdfSpec(
+        robot_name="ARX5Dual",
+        # The public SFT release is cache-only for ARX. This provenance path is
+        # intentionally not required while assets/urdf_cache/ARX5Dual.pkl exists.
+        urdf_path=Path(__file__).resolve().parents[5] / "assets/ARX5Dual.urdf",
+        base_link="dual_base",
+        eef_link_names=("left_eef_link", "right_eef_link"),
+        aliases=("arx", "arx5", "arx5_dual", "arx_dual", "dual_arm_arx"),
+    ),
     "GR1": RobotUrdfSpec(
         robot_name="GR1",
         urdf_path=Path(__file__).resolve().parents[5] / "assets/GR1T2_with_hands.urdf",
@@ -107,6 +116,8 @@ ROBOT_URDF_SPECS: dict[str, RobotUrdfSpec] = {
 
 
 ROBOT_TYPE_TO_CANONICAL_ROBOT_NAME: dict[str, str] = {
+    "arx_dual_arm": "ARX5Dual",
+    "arx_dual_arm_common23": "ARX5Dual",
     "fourier_gr1_eef_gripper_6d": "GR1",
 }
 

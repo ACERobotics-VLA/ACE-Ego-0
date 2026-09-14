@@ -1,0 +1,86 @@
+seed: 42
+run_root_dir: ../../outputs/training
+trackers: [jsonl]
+
+framework:
+  name: ACE-Ego-0
+  qwenvl:
+    base_vlm: assets/qwen3-vl-4b-instruct
+    compute_dtype: bfloat16
+    attn_implementation: flash_attention_2
+    vl_hidden_dim: 2560
+    num_vl_layers: 36
+  action_model:
+    action_dim: 23
+    state_dim: 23
+    action_horizon: 30
+    future_action_window_size: 29
+    past_action_window_size: 0
+    compute_dtype: float32
+    max_seq_len: 1024
+    add_pos_embed: true
+    loss_parameterization: velocity
+    noise_beta_alpha: 1.5
+    noise_beta_beta: 1.0
+    noise_s: 0.999
+    num_timestep_buckets: 1000
+    num_inference_timesteps: 4
+    num_target_vision_tokens: 32
+    enable_state_input: true
+    state_design_preset: rdt2
+    state_injection_mode: timestep_conditioning
+    state_timestep_mode: concat
+    enable_urdf_input: true
+    urdf_cache_dir: assets/urdf_cache
+    urdf_auto_build_cache: false
+    urdf_encoder_hidden_dim: 256
+    urdf_encoder_layers: 2
+    urdf_token_dim: 1024
+    urdf_use_body_token: true
+    urdf_use_chain_token: true
+    urdf_unknown_robot_policy: error
+    diffusion_model_cfg:
+      attention_head_dim: 64
+      dropout: 0.2
+      final_dropout: true
+      input_embedding_dim: 1024
+      interleave_self_attention: false
+      norm_type: ada_norm
+      num_attention_heads: 16
+      num_layers: 36
+      output_dim: 1024
+      positional_embeddings: null
+      cross_attention_dim: 2560
+  reduce_in_full_precision: true
+
+datasets:
+  vla_data:
+    action_horizon: 30
+    CoT_prompt: "{instruction}"
+    preserve_raw_image_size: false
+    num_workers: 4
+    prefetch_factor: 2
+    persistent_workers: true
+    per_device_batch_size: 16
+
+trainer:
+  max_train_steps: 100000
+  num_warmup_steps: 5000
+  save_interval: 10000
+  logging_frequency: 20
+  gradient_accumulation_steps: 1
+  gradient_clipping: 1.0
+  repeated_diffusion_steps: 4
+  enable_gradient_checkpointing: true
+  learning_rate:
+    base: 1.0e-5
+    qwen_vl_interface: 1.0e-5
+    action_model: 1.0e-4
+  lr_scheduler_type: cosine_with_min_lr
+  scheduler_specific_kwargs:
+    min_lr: 5.0e-7
+  optimizer:
+    betas: [0.9, 0.95]
+    eps: 1.0e-8
+    weight_decay: 1.0e-8
+    foreach: false

@@ -1,0 +1,6 @@
+base_config: absolute_sft_base.yaml
+run_id: ace_ego_0_arx_heat_sandwich_absolute_sft
+datasets:
+  vla_data:
+    dataset_manifest_path: manifests/heat_sandwich.txt
+    norm_manifest_path: ${datasets.vla_data.data_root_dir}/norm/heat_sandwich/absolute/norm_manifest.json
